@@ -1,0 +1,28 @@
+actions:
+  - name: getUsers
+    definition:
+      kind: ""
+      handler: http://host.docker.internal:3000
+    comment: getUsers
+  - name: signin
+    definition:
+      kind: ""
+      handler: http://host.docker.internal:3000/api/auth/signin
+    permissions:
+      - role: anonymous
+  - name: signup
+    definition:
+      kind: synchronous
+      handler: http://host.docker.internal:3000/api/auth/createuser
+    permissions:
+      - role: anonymous
+custom_types:
+  enums: []
+  input_objects:
+    - name: signinInput
+  objects:
+    - name: usersList
+    - name: signupOutput
+    - name: token
+    - name: singinOutput
+  scalars: []

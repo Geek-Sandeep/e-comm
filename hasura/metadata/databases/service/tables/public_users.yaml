@@ -1,0 +1,73 @@
+table:
+  name: users
+  schema: public
+array_relationships:
+  - name: user_roles
+    using:
+      foreign_key_constraint_on:
+        column: user_id
+        table:
+          name: user_roles
+          schema: public
+insert_permissions:
+  - role: Super_Admin
+    permission:
+      check: {}
+      columns:
+        - id
+        - name
+        - email
+        - password
+        - created_at
+        - updated_at
+select_permissions:
+  - role: Super_Admin
+    permission:
+      columns:
+        - email
+        - name
+        - password
+        - created_at
+        - updated_at
+        - id
+      filter: {}
+  - role: User
+    permission:
+      columns:
+        - email
+        - name
+      filter:
+        id:
+          _eq: X-Hasura-User-Id
+update_permissions:
+  - role: Super_Admin
+    permission:
+      columns:
+        - email
+        - name
+        - password
+        - created_at
+        - updated_at
+        - id
+      filter: {}
+      check: {}
+  - role: User
+    permission:
+      columns:
+        - name
+        - password
+      filter:
+        id:
+          _eq: X-Hasura-User-Id
+      check: null
+delete_permissions:
+  - role: Super_Admin
+    permission:
+      backend_only: false
+      filter: {}
+  - role: User
+    permission:
+      backend_only: false
+      filter:
+        id:
+          _eq: X-Hasura-User-Id

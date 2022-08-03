@@ -1,0 +1,46 @@
+type Query {
+  getUsers: usersList
+}
+
+type Query {
+  signin(
+    email: String!
+    password: String!
+  ): singinOutput
+}
+
+type Mutation {
+  signup(
+    name: String!
+    email: String!
+    password: String!
+  ): signupOutput
+}
+
+input signinInput {
+  email: String!
+  password: String!
+}
+
+type usersList {
+  id: String
+  name: String
+  email: String
+}
+
+type signupOutput {
+  success: Boolean!
+  message: String!
+  data: token
+}
+
+type token {
+  token: String!
+}
+
+type singinOutput {
+  success: Boolean!
+  message: String!
+  data: token
+}
+
