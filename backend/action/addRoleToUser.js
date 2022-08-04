@@ -1,10 +1,10 @@
 const execute = require('../operations/execute');
-const INSERT_DEFAULT_ROLE = require('../operations/insertUserRole.mutation')
+const INSERT_USER_ROLE = require('../operations/insertUserRole.mutation')
 
 async function AddRoleToUser({ roleID, userID }) {
     const { data, errors } = await execute({
         variables: { roleID, userID },
-        query: INSERT_DEFAULT_ROLE
+        query: INSERT_USER_ROLE
     });
 
     if (errors) {
@@ -20,7 +20,7 @@ async function AddRoleToUser({ roleID, userID }) {
         return {
             success: true,
             message: "Successfully added role!",
-            data: null
+            data: data.data
         }
     } else {
         console.log("AddRoleToUser query failed!")

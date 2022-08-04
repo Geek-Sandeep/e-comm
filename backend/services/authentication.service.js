@@ -1,6 +1,4 @@
-const axios = require('axios')
 const ENV = require("../utils/env");
-const GetRolesByID = require('../action/getRolesByID')
 const AddDefaultRole = require('../action/addDefaultRole')
 const createToken = require('../action/createToken');
 const execute = require('../operations/execute');
@@ -9,16 +7,16 @@ const SIGNUP_QUERY = require('../operations/signup.mutation')
 
 /* eslint-disable indent */
 module.exports = {
-    name: "auth",
+    name: "authentication",
     actions: {
         signin: {
             rest: "signin",
             async handler(ctx) {
-                const {email, password} = ctx.options.parentCtx.params.req.body?.input
+                const { email, password } = ctx.options.parentCtx.params.req.body?.input
 
                 // execute the Hasura operation
                 const { data, errors } = await execute({
-                    variables: {email},
+                    variables: { email },
                     query: SIGNIN_QUERY
                 });
 
