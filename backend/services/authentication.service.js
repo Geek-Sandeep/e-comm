@@ -2,8 +2,8 @@ const ENV = require("../utils/env");
 const AddDefaultRole = require('../action/addDefaultRole')
 const createToken = require('../action/createToken');
 const execute = require('../operations/execute');
-const SIGNIN_QUERY = require('../operations/signin.query')
-const SIGNUP_QUERY = require('../operations/signup.mutation')
+const { signin } = require("../operations/queries");
+const { signup } = require("../operations/mutations");
 
 /* eslint-disable indent */
 module.exports = {
@@ -17,7 +17,7 @@ module.exports = {
                 // execute the Hasura operation
                 const { data, errors } = await execute({
                     variables: { email },
-                    query: SIGNIN_QUERY
+                    query: signin
                 });
 
                 if (errors) {
@@ -71,7 +71,7 @@ module.exports = {
                 // execute the Hasura operation
                 const { data, errors } = await execute({
                     variables: body,
-                    query: SIGNUP_QUERY
+                    query: signup
                 });
 
                 // if Hasura operation errors, then throw error

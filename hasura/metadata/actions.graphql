@@ -1,12 +1,15 @@
 type Mutation {
+  attachPermissionToRole(
+    permissionID: uuid!
+    roleID: uuid!
+  ): response
+}
+
+type Mutation {
   attachRoleToUser(
     roleID: uuid!
     userID: uuid!
   ): response
-}
-
-type Query {
-  getUsers: usersList
 }
 
 type Query {

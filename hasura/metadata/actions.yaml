@@ -1,4 +1,11 @@
 actions:
+  - name: attachPermissionToRole
+    definition:
+      kind: synchronous
+      handler: http://host.docker.internal:3000/api/authorization/attachPermissionToRole
+    permissions:
+      - role: anonymous
+    comment: attachPermissionToRole
   - name: attachRoleToUser
     definition:
       kind: synchronous
@@ -6,11 +13,6 @@ actions:
     permissions:
       - role: anonymous
     comment: attachRoleToUser
-  - name: getUsers
-    definition:
-      kind: ""
-      handler: http://host.docker.internal:3000
-    comment: getUsers
   - name: signin
     definition:
       kind: ""
@@ -20,7 +22,7 @@ actions:
   - name: signup
     definition:
       kind: synchronous
-      handler: http://host.docker.internal:3000/api/auth/createuser
+      handler: http://host.docker.internal:3000/api/authentication/createuser
     permissions:
       - role: anonymous
 custom_types:

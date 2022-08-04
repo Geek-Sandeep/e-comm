@@ -1,10 +1,10 @@
-const GET_ROLES_BY_ID = require("../operations/getRolesByID.query");
 const execute = require('../operations/execute');
+const { getRoleByID } = require("../operations/queries");
 
 async function GetRolesByID(id) {
     const { data, errors } = await execute({
         variables: {id},
-        query: GET_ROLES_BY_ID
+        query: getRoleByID
     });
 
     if (errors) {

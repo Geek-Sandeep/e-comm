@@ -1,12 +1,12 @@
-const GET_USER_ROLE_ID = require('../operations/getUserRolesID.query');
 const execute = require('../operations/execute');
 const AddRoleToUser = require('./addRoleToUser');
+const { getRoleIDByKey } = require('../operations/queries');
 
 async function AddDefaultRole(userID, roleName) {
     // execute the Hasura operation
     const { data, errors } = await execute({
         variables: {role: roleName},
-        query: GET_USER_ROLE_ID
+        query: getRoleIDByKey
     });
 
     // if Hasura operation errors, then throw error
