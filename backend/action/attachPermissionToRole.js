@@ -1,14 +1,14 @@
 const execute = require('../operations/execute');
-const { insertUserRole } = require('../operations/mutations');
+const { insertPermissionToRole } = require('../operations/mutations');
 
-async function AddRoleToUser({ roleID, userID }) {
+async function AddPermissionToRole({ permissionID, roleID }) {
     const { data, errors } = await execute({
-        variables: { roleID, userID },
-        query: insertUserRole
+        variables: { permissionID, roleID },
+        query: insertPermissionToRole
     });
 
     if (errors) {
-        console.log("AddRoleToUser query failed!")
+        console.log("AddPermissionToRole query failed!")
         return {
             success: false,
             message: "query execution failed!",
@@ -18,10 +18,10 @@ async function AddRoleToUser({ roleID, userID }) {
     if (data.data) {
         return {
             success: true,
-            message: "Successfully added role!",
+            message: "Successfully added permission!",
         }
     } else {
-        console.log("AddRoleToUser query failed!")
+        console.log("AddPermissionToRole query failed!")
         return {
             success: false,
             message: data.errors[0].message,
@@ -29,4 +29,4 @@ async function AddRoleToUser({ roleID, userID }) {
     }
 }
 
-module.exports = AddRoleToUser
+module.exports = AddPermissionToRole
