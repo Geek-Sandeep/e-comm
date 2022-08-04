@@ -21,6 +21,12 @@ insert_permissions:
         - created_at
         - updated_at
 select_permissions:
+  - role: Staff
+    permission:
+      columns:
+        - id
+        - name
+      filter: {}
   - role: Super_Admin
     permission:
       columns:

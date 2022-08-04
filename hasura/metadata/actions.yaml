@@ -1,4 +1,11 @@
 actions:
+  - name: attachRoleToUser
+    definition:
+      kind: synchronous
+      handler: http://host.docker.internal:3000/api/authorization/attachRoleToUser
+    permissions:
+      - role: anonymous
+    comment: attachRoleToUser
   - name: getUsers
     definition:
       kind: ""
@@ -7,7 +14,7 @@ actions:
   - name: signin
     definition:
       kind: ""
-      handler: http://host.docker.internal:3000/api/auth/signin
+      handler: http://host.docker.internal:3000/api/authentication/signin
     permissions:
       - role: anonymous
   - name: signup
@@ -25,4 +32,5 @@ custom_types:
     - name: signupOutput
     - name: token
     - name: singinOutput
+    - name: response
   scalars: []

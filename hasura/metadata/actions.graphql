@@ -1,3 +1,10 @@
+type Mutation {
+  attachRoleToUser(
+    roleID: uuid!
+    userID: uuid!
+  ): response
+}
+
 type Query {
   getUsers: usersList
 }
@@ -42,5 +49,10 @@ type singinOutput {
   success: Boolean!
   message: String!
   data: token
+}
+
+type response {
+  success: Boolean!
+  message: String!
 }
 
