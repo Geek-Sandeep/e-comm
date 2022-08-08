@@ -1,0 +1,19 @@
+query getMyProducts {
+  ecom_products(where: {image: {_is_null: false}}, order_by: {created_at: asc}) {
+    id
+    name
+    description
+    image
+    price
+  }
+}
+
+query getProductByProductId($product_id: uuid!) {
+  ecom_products(where: {id: {_eq: $product_id}}, order_by: {created_at: asc}) {
+    id
+    name
+    description
+    image
+    price
+  }
+}

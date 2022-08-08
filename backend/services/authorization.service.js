@@ -19,6 +19,14 @@ module.exports = {
 
                 return await AddPermissionToRole({ permissionID, roleID })
             }
+        },
+        detachRoleToUser: {
+            rest: "detachRoleToUser",
+            async handler(ctx) {
+                const { userID, roleID } = ctx.options.parentCtx.params.req.body?.input
+
+                return await AddRoleToUser({ roleID, userID })
+            }
         }
     }
 }
