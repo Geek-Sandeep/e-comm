@@ -41,7 +41,7 @@ type usersList {
 type signupOutput {
   success: Boolean!
   message: String!
-  data: token
+  data: authResponse
 }
 
 type token {
@@ -51,11 +51,18 @@ type token {
 type singinOutput {
   success: Boolean!
   message: String!
-  data: token
+  data: authResponse
 }
 
 type response {
   success: Boolean!
   message: String!
+}
+
+type authResponse {
+  id: String!
+  name: String!
+  email: String!
+  token: String!
 }
 

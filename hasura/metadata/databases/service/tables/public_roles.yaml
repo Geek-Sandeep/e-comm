@@ -17,6 +17,12 @@ array_relationships:
           name: user_roles
           schema: public
 insert_permissions:
+  - role: Staff
+    permission:
+      check: {}
+      columns:
+        - id
+        - key
   - role: Super-Admin
     permission:
       check: {}

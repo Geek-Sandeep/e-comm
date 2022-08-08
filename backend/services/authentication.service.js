@@ -32,14 +32,6 @@ module.exports = {
                 if (data.data) {
                     let user = data.data.users[0]
 
-                    if (!user) {
-                        return {
-                            success: false,
-                            message: "User doesn't exist with this email!",
-                            data: null
-                        }
-                    }
-
                     if (user.password === password) {
                         // genrate the token
                         const result = await createToken(user)
@@ -51,7 +43,12 @@ module.exports = {
                         return {
                             success: true,
                             message: "user Sign In successful!",
-                            data: result.data
+                            data: {
+                                id: user.id,
+                                name: user.name,
+                                email: user.email,
+                                token: result.data.token
+                            }
                         }
                     } else {
                         return {
@@ -95,9 +92,9 @@ module.exports = {
                 if (data.data) {
                     const user = data.data.insert_users_one
 
-                    let roleName = "User"
+                    let roleName = "user"
                     if (user.email === ENV.SUPER_ADMIN_EMAIL) {
-                        roleName = "Super-Admin"
+                        roleName = "super_admin"
                     }
 
                     const res = await AddDefaultRole(user.id, roleName)
@@ -106,7 +103,22 @@ module.exports = {
                         return res
                     }
 
-                    return await createToken(user)
+                    const result =  await createToken(user)
+
+                    if (!result.success) {
+                        return res
+                    }
+
+                    return {
+                        success: true,
+                        message: "user Sign up successful!",
+                        data: {
+                            id: user.id,
+                            name: user.name,
+                            email: user.email,
+                            token: result.data.token
+                        }
+                    }
                 } else {
                     return {
                         success: false,

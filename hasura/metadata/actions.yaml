@@ -35,4 +35,5 @@ custom_types:
     - name: token
     - name: singinOutput
     - name: response
+    - name: authResponse
   scalars: []
