@@ -1,0 +1,1 @@
+INSERT INTO "ecom"."products"("id", "created_at", "updated_at", "name", "description", "image", "price") VALUES (E'0dbb9908-a253-4816-b499-6c3376c573d7', E'2022-08-05T12:03:36.926824+00:00', E'2022-08-05T12:03:36.926824+00:00', E'ball', E'basket ball', E'-', 200);
