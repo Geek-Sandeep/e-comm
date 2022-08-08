@@ -19,21 +19,21 @@ actions:
       handler: http://host.docker.internal:3000/api/authentication/signin
     permissions:
       - role: anonymous
+    comment: signin
   - name: signup
     definition:
       kind: synchronous
       handler: http://host.docker.internal:3000/api/authentication/createuser
     permissions:
       - role: anonymous
+    comment: signup
 custom_types:
   enums: []
-  input_objects:
-    - name: signinInput
+  input_objects: []
   objects:
-    - name: usersList
     - name: signupOutput
     - name: token
-    - name: singinOutput
+    - name: signinOutput
     - name: response
     - name: authResponse
   scalars: []
