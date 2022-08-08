@@ -32,6 +32,14 @@ module.exports = {
                 if (data.data) {
                     let user = data.data.users[0]
 
+                    if (!user) {
+                        return {
+                            success: false,
+                            message: "User doesn't exist with this email!",
+                            data: null
+                        }
+                    }
+
                     if (user.password === password) {
                         // genrate the token
                         const result = await createToken(user)
@@ -87,11 +95,9 @@ module.exports = {
                 if (data.data) {
                     const user = data.data.insert_users_one
 
-                    let roleName
+                    let roleName = "User"
                     if (user.email === ENV.SUPER_ADMIN_EMAIL) {
-                        roleName = "Super_Admin"
-                    } else {
-                        roleName = "User"
+                        roleName = "Super-Admin"
                     }
 
                     const res = await AddDefaultRole(user.id, roleName)
@@ -112,4 +118,3 @@ module.exports = {
         }
     }
 };
-

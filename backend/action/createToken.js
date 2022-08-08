@@ -23,14 +23,14 @@ async function createToken({ id, name }) {
         "https://hasura.io/jwt/claims": {
             "x-hasura-allowed-roles": roleArr,
             "x-hasura-default-role": roleArr[0],
-            "x-hasura-role": roleArr[0],
+            // "x-hasura-role": roleArr[0],
             "x-hasura-user-id": id.toString(),
         },
     }
 
     const token = jwt.sign(tokenContents, ENV.HASURA_GRAPHQL_JWT_SECRET.key, {
         ...ENV.JWT_CONFIG,
-        expiresIn: `5m`,
+        expiresIn: `60m`,
     });
 
     return {
