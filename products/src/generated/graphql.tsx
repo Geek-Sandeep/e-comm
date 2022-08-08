@@ -63,13 +63,21 @@ export type String_Comparison_Exp = {
   _similar?: InputMaybe<Scalars['String']>;
 };
 
+export type AuthResponse = {
+  __typename?: 'authResponse';
+  email: Scalars['String'];
+  id: Scalars['String'];
+  name: Scalars['String'];
+  token: Scalars['String'];
+};
+
 /** columns and relationships of "ecom.products" */
 export type Ecom_Products = {
   __typename?: 'ecom_products';
   created_at: Scalars['timestamptz'];
   description: Scalars['String'];
   id: Scalars['uuid'];
-  image: Scalars['String'];
+  image?: Maybe<Scalars['String']>;
   name: Scalars['String'];
   price: Scalars['Int'];
   updated_at: Scalars['timestamptz'];
@@ -347,7 +355,6 @@ export type Mutation_Root = {
   insert_users?: Maybe<Users_Mutation_Response>;
   /** insert a single row into the table: "users" */
   insert_users_one?: Maybe<Users>;
-  /** signup */
   signup?: Maybe<SignupOutput>;
   /** update data of the table: "ecom.products" */
   update_ecom_products?: Maybe<Ecom_Products_Mutation_Response>;
@@ -830,8 +837,7 @@ export type Query_Root = {
   roles_aggregate: Roles_Aggregate;
   /** fetch data from the table: "roles" using primary key columns */
   roles_by_pk?: Maybe<Roles>;
-  /** signin */
-  signin?: Maybe<SigninOutput>;
+  signin?: Maybe<SinginOutput>;
   /** An array relationship */
   user_roles: Array<User_Roles>;
   /** An aggregate relationship */
@@ -1336,16 +1342,16 @@ export enum Roles_Update_Column {
   Key = 'key'
 }
 
-export type SigninOutput = {
-  __typename?: 'signinOutput';
-  data?: Maybe<Token>;
+export type SignupOutput = {
+  __typename?: 'signupOutput';
+  data?: Maybe<AuthResponse>;
   message: Scalars['String'];
   success: Scalars['Boolean'];
 };
 
-export type SignupOutput = {
-  __typename?: 'signupOutput';
-  data?: Maybe<Token>;
+export type SinginOutput = {
+  __typename?: 'singinOutput';
+  data?: Maybe<AuthResponse>;
   message: Scalars['String'];
   success: Scalars['Boolean'];
 };
@@ -1541,11 +1547,6 @@ export type Timestamptz_Comparison_Exp = {
   _nin?: InputMaybe<Array<Scalars['timestamptz']>>;
 };
 
-export type Token = {
-  __typename?: 'token';
-  token: Scalars['String'];
-};
-
 /** columns and relationships of "user_roles" */
 export type User_Roles = {
   __typename?: 'user_roles';
@@ -1609,7 +1610,9 @@ export type User_Roles_Bool_Exp = {
 /** unique or primary key constraints on table "user_roles" */
 export enum User_Roles_Constraint {
   /** unique or primary key constraint on columns "id" */
-  UserRolesPkey = 'user_roles_pkey'
+  UserRolesPkey = 'user_roles_pkey',
+  /** unique or primary key constraint on columns "user_id", "role_id" */
+  UserRolesUserIdRoleIdKey = 'user_roles_user_id_role_id_key'
 }
 
 /** input type for inserting data into table "user_roles" */
@@ -1917,14 +1920,14 @@ export type Uuid_Comparison_Exp = {
 export type GetMyProductsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetMyProductsQuery = { __typename?: 'query_root', ecom_products: Array<{ __typename?: 'ecom_products', id: any, name: string, description: string, image: string, price: number }> };
+export type GetMyProductsQuery = { __typename?: 'query_root', ecom_products: Array<{ __typename?: 'ecom_products', id: any, name: string, description: string, image?: string | null, price: number }> };
 
 export type GetProductByProductIdQueryVariables = Exact<{
   product_id: Scalars['uuid'];
 }>;
 
 
-export type GetProductByProductIdQuery = { __typename?: 'query_root', ecom_products: Array<{ __typename?: 'ecom_products', id: any, name: string, description: string, image: string, price: number }> };
+export type GetProductByProductIdQuery = { __typename?: 'query_root', ecom_products: Array<{ __typename?: 'ecom_products', id: any, name: string, description: string, image?: string | null, price: number }> };
 
 
 export const GetMyProductsDocument = gql`

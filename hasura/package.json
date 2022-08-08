@@ -3,6 +3,7 @@
   "description": "",
   "scripts": {
     "start:docker": "docker-compose -f docker-compose.yml up",
-    "start:migration": "hasura console  --admin-secret=secret"
+    "start:console": "hasura console  --admin-secret=secret",
+    "start:migrate": "hasura migrate apply  --admin-secret=secret"
   }
 }

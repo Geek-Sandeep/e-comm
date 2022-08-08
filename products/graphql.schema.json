@@ -1349,6 +1349,81 @@
       },
       {
         "kind": "OBJECT",
+        "name": "authResponse",
+        "description": null,
+        "fields": [
+          {
+            "name": "email",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "id",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "name",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "token",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
         "name": "ecom_products",
         "description": "columns and relationships of \"ecom.products\"",
         "fields": [
@@ -1405,13 +1480,9 @@
             "description": null,
             "args": [],
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -3775,7 +3846,7 @@
           },
           {
             "name": "signup",
-            "description": "signup",
+            "description": null,
             "args": [
               {
                 "name": "email",
@@ -6217,7 +6288,7 @@
           },
           {
             "name": "signin",
-            "description": "signin",
+            "description": null,
             "args": [
               {
                 "name": "email",
@@ -6254,7 +6325,7 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "signinOutput",
+              "name": "singinOutput",
               "ofType": null
             },
             "isDeprecated": false,
@@ -8940,7 +9011,7 @@
       },
       {
         "kind": "OBJECT",
-        "name": "signinOutput",
+        "name": "signupOutput",
         "description": null,
         "fields": [
           {
@@ -8949,7 +9020,7 @@
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "token",
+              "name": "authResponse",
               "ofType": null
             },
             "isDeprecated": false,
@@ -8995,7 +9066,7 @@
       },
       {
         "kind": "OBJECT",
-        "name": "signupOutput",
+        "name": "singinOutput",
         "description": null,
         "fields": [
           {
@@ -9004,7 +9075,7 @@
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "token",
+              "name": "authResponse",
               "ofType": null
             },
             "isDeprecated": false,
@@ -10544,33 +10615,6 @@
       },
       {
         "kind": "OBJECT",
-        "name": "token",
-        "description": null,
-        "fields": [
-          {
-            "name": "token",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "inputFields": null,
-        "interfaces": [],
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "OBJECT",
         "name": "user_roles",
         "description": "columns and relationships of \"user_roles\"",
         "fields": [
@@ -11019,6 +11063,12 @@
           {
             "name": "user_roles_pkey",
             "description": "unique or primary key constraint on columns \"id\"",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "user_roles_user_id_role_id_key",
+            "description": "unique or primary key constraint on columns \"user_id\", \"role_id\"",
             "isDeprecated": false,
             "deprecationReason": null
           }
