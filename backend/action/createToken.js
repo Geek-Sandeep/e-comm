@@ -37,6 +37,7 @@ async function createToken({ id, name }) {
         success: true,
         message: "token created successfully!",
         data: {
+            roles: roleArr,
             token: "Bearer " + token
         }
     }

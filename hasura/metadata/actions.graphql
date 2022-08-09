@@ -63,6 +63,7 @@ type authResponse {
   id: String!
   name: String!
   email: String!
+  roles: [String]
   token: String!
 }
 

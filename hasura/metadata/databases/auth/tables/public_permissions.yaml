@@ -9,3 +9,32 @@ array_relationships:
         table:
           name: roles_permissions
           schema: public
+insert_permissions:
+  - role: super_admin
+    permission:
+      check: {}
+      columns:
+        - key
+select_permissions:
+  - role: staff
+    permission:
+      columns:
+        - key
+      filter: {}
+  - role: super_admin
+    permission:
+      columns:
+        - key
+      filter: {}
+update_permissions:
+  - role: super_admin
+    permission:
+      columns:
+        - key
+      filter: {}
+      check: {}
+delete_permissions:
+  - role: super_admin
+    permission:
+      backend_only: false
+      filter: {}

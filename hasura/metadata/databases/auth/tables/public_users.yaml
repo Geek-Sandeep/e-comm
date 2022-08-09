@@ -20,16 +20,6 @@ insert_permissions:
         - created_at
         - updated_at
         - id
-  - role: Super-Admin
-    permission:
-      check: {}
-      columns:
-        - id
-        - name
-        - email
-        - password
-        - created_at
-        - updated_at
   - role: super_admin
     permission:
       check: {}
@@ -50,16 +40,6 @@ select_permissions:
         - name
         - updated_at
       filter: {}
-  - role: Super-Admin
-    permission:
-      columns:
-        - email
-        - name
-        - password
-        - created_at
-        - updated_at
-        - id
-      filter: {}
   - role: User
     permission:
       columns:
@@ -71,6 +51,16 @@ select_permissions:
       filter:
         id:
           _eq: X-Hasura-User-Id
+  - role: staff
+    permission:
+      columns:
+        - email
+        - name
+        - password
+        - created_at
+        - updated_at
+        - id
+      filter: {}
   - role: super_admin
     permission:
       columns:
@@ -89,17 +79,6 @@ update_permissions:
         - password
       filter: {}
       check: null
-  - role: Super-Admin
-    permission:
-      columns:
-        - email
-        - name
-        - password
-        - created_at
-        - updated_at
-        - id
-      filter: {}
-      check: {}
   - role: User
     permission:
       columns:
@@ -122,10 +101,6 @@ update_permissions:
       check: {}
 delete_permissions:
   - role: Staff
-    permission:
-      backend_only: false
-      filter: {}
-  - role: Super-Admin
     permission:
       backend_only: false
       filter: {}

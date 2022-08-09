@@ -51,7 +51,13 @@ module.exports = {
                         return {
                             success: true,
                             message: "user Sign In successful!",
-                            data: result.data
+                            data: {
+                                id: user.id,
+                                name: user.name,
+                                email: user.email,
+                                roles: result.data.roles,
+                                token: result.data.token
+                            }
                         }
                     } else {
                         return {
@@ -107,7 +113,23 @@ module.exports = {
                         return res
                     }
 
-                    return await createToken(user)
+                    const result = await createToken(user)
+
+                    if (!result.success) {
+                        return res
+                    }
+
+                    return {
+                        success: true,
+                        message: "user Sign up successful!",
+                        data: {
+                            id: user.id,
+                            name: user.name,
+                            email: user.email,
+                            roles: result.data.roles,
+                            token: result.data.token
+                        }
+                    }
                 } else {
                     return {
                         success: false,
