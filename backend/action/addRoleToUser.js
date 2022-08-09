@@ -1,9 +1,9 @@
 const execute = require('../operations/execute');
 const { insertUserRole } = require('../operations/mutations');
 
-async function AddRoleToUser({ roleID, userID }) {
+async function AddRoleToUser({ roleKey, userID }) {
     const { data, errors } = await execute({
-        variables: { roleID, userID },
+        variables: { roleKey, userID },
         query: insertUserRole
     });
 

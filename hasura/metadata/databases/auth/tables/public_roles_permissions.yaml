@@ -1,0 +1,39 @@
+table:
+  name: roles_permissions
+  schema: public
+insert_permissions:
+  - role: super_admin
+    permission:
+      check: {}
+      columns:
+        - id
+        - role_key
+        - permission_key
+        - created_at
+        - updated_at
+select_permissions:
+  - role: super_admin
+    permission:
+      columns:
+        - permission_key
+        - role_key
+        - created_at
+        - updated_at
+        - id
+      filter: {}
+update_permissions:
+  - role: super_admin
+    permission:
+      columns:
+        - permission_key
+        - role_key
+        - created_at
+        - updated_at
+        - id
+      filter: {}
+      check: {}
+delete_permissions:
+  - role: super_admin
+    permission:
+      backend_only: false
+      filter: {}

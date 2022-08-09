@@ -12,8 +12,8 @@ mutation ($name: String!, $email: String!, $password: String!) {
 }`;
 
 const insertUserRole = `
-mutation ($roleID: uuid!, $userID: uuid!) {
-    insert_user_roles_one(object: { role_id: $roleID, user_id: $userID }) {
+mutation ($roleKey: String!, $userID: uuid!) {
+    insert_user_roles_one(object: { role_key: $roleKey, user_id: $userID }) {
         id
     }
 }`;

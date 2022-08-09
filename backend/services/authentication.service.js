@@ -1,9 +1,9 @@
 const ENV = require("../utils/env");
-const AddDefaultRole = require('../action/addDefaultRole')
 const createToken = require('../action/createToken');
 const execute = require('../operations/execute');
 const { signin } = require("../operations/queries");
 const { signup } = require("../operations/mutations");
+const AddRoleToUser = require("../action/addRoleToUser");
 
 /* eslint-disable indent */
 module.exports = {
@@ -74,7 +74,7 @@ module.exports = {
             rest: "/createuser",
             async handler(ctx) {
                 // get params
-                const body = ctx.options.parentCtx.params.req.body?.input
+                const body = ctx.params.input
 
                 // execute the Hasura operation
                 const { data, errors } = await execute({
@@ -94,13 +94,14 @@ module.exports = {
 
                 if (data.data) {
                     const user = data.data.insert_users_one
+                    const userID = user.id
 
-                    let roleName = "User"
+                    let roleKey = "user"
                     if (user.email === ENV.SUPER_ADMIN_EMAIL) {
-                        roleName = "Super-Admin"
+                        roleKey = "super_admin"
                     }
 
-                    const res = await AddDefaultRole(user.id, roleName)
+                    const res = await AddRoleToUser({ roleKey, userID })
 
                     if (!res.success) {
                         return res

@@ -1,10 +1,7 @@
-const getRoleByID = `
+const getRoleByUserID = `
 query ($id: uuid!) {
         user_roles(where: {user_id: {_eq: $id}}) {
-            role {
-                id
-                key
-            }
+            role_key
         }
 }`
 
@@ -17,13 +14,6 @@ query ($email: String!) {
     }
 }`
 
-const getRoleIDByKey = `
-query ($role: String!) {
-    roles(where: {key: {_eq: $role}}) {
-        id
-    }
-}`;
-
 module.exports = {
-    getRoleByID, signin, getRoleIDByKey
+    getRoleByUserID, signin
 }

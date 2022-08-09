@@ -1,13 +1,6 @@
 table:
   name: role_permissions
   schema: public
-object_relationships:
-  - name: permission
-    using:
-      foreign_key_constraint_on: permission_id
-  - name: role
-    using:
-      foreign_key_constraint_on: role_id
 insert_permissions:
   - role: Super-Admin
     permission:
@@ -15,14 +8,14 @@ insert_permissions:
       columns:
         - id
         - permission_id
-        - role_id
+        - role_key
 select_permissions:
   - role: Super-Admin
     permission:
       columns:
         - id
         - permission_id
-        - role_id
+        - role_key
       filter: {}
 update_permissions:
   - role: Super-Admin
@@ -30,7 +23,7 @@ update_permissions:
       columns:
         - id
         - permission_id
-        - role_id
+        - role_key
       filter: {}
       check: {}
 delete_permissions:

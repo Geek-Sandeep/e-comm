@@ -11,6 +11,7 @@ actions:
       kind: synchronous
       handler: http://host.docker.internal:3000/api/authorization/attachRoleToUser
     permissions:
+      - role: super_admin
       - role: Super-Admin
     comment: attachRoleToUser
   - name: signin
@@ -36,4 +37,5 @@ custom_types:
     - name: singinOutput
     - name: response
     - name: authResponse
+    - name: signinOutput
   scalars: []

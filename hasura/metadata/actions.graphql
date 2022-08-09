@@ -7,7 +7,7 @@ type Mutation {
 
 type Mutation {
   attachRoleToUser(
-    roleID: uuid!
+    roleKey: String!
     userID: uuid!
   ): response
 }
@@ -16,7 +16,7 @@ type Query {
   signin(
     email: String!
     password: String!
-  ): singinOutput
+  ): signinOutput
 }
 
 type Mutation {
@@ -64,5 +64,11 @@ type authResponse {
   name: String!
   email: String!
   token: String!
+}
+
+type signinOutput {
+  success: Boolean!
+  message: String!
+  data: authResponse
 }
 

@@ -1,10 +1,10 @@
 const execute = require('../operations/execute');
-const { getRoleByID } = require("../operations/queries");
+const { getRoleByUserID } = require("../operations/queries");
 
-async function GetRolesByID(id) {
+async function GetRolesByUserID(id) {
     const { data, errors } = await execute({
-        variables: {id},
-        query: getRoleByID
+        variables: { id },
+        query: getRoleByUserID
     });
 
     if (errors) {
@@ -33,4 +33,4 @@ async function GetRolesByID(id) {
     }
 }
 
-module.exports = GetRolesByID
+module.exports = GetRolesByUserID
