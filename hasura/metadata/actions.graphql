@@ -1,7 +1,7 @@
 type Mutation {
   attachPermissionToRole(
-    permissionID: uuid!
     roleID: uuid!
+    permissionID: uuid!
   ): response
 }
 
@@ -13,10 +13,16 @@ type Mutation {
 }
 
 type Query {
+  getproductbypk(
+    id: String!
+  ): productsOutput
+}
+
+type Query {
   signin(
     email: String!
     password: String!
-  ): singinOutput
+  ): signinOutput
 }
 
 type Mutation {
@@ -27,31 +33,20 @@ type Mutation {
   ): signupOutput
 }
 
-input signinInput {
-  email: String!
-  password: String!
-}
-
-type usersList {
-  id: String
-  name: String
-  email: String
-}
-
 type signupOutput {
   success: Boolean!
   message: String!
-  data: authResponse
+  data: token
 }
 
 type token {
   token: String!
 }
 
-type singinOutput {
+type signinOutput {
   success: Boolean!
   message: String!
-  data: authResponse
+  data: token
 }
 
 type response {
@@ -59,10 +54,17 @@ type response {
   message: String!
 }
 
-type authResponse {
-  id: String!
+type ProductFields {
+  id: uuid!
   name: String!
-  email: String!
-  token: String!
+  description: String!
+  image: String!
+  price: Int!
+}
+
+type productsOutput {
+  success: Boolean!
+  message: String!
+  data: ProductFields
 }
 
