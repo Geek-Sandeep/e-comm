@@ -7,26 +7,26 @@ module.exports = {
         attachRoleToUser: {
             rest: "attachRoleToUser",
             async handler(ctx) {
-                const { userID, roleID } = ctx.options.parentCtx.params.req.body?.input
+                const { userID, roleKey } = ctx.params.input
 
-                return await AddRoleToUser({ roleID, userID })
+                return await AddRoleToUser({ roleKey, userID })
             }
         },
         attachPermissionToRole: {
             rest: "attachPermissionToRole",
             async handler(ctx) {
-                const { permissionID, roleID } = ctx.options.parentCtx.params.req.body?.input
+                const { permissionKey, roleKey } = ctx.params.input
 
-                return await AddPermissionToRole({ permissionID, roleID })
+                return await AddPermissionToRole({ permissionKey, roleKey })
             }
         },
-        detachRoleToUser: {
-            rest: "detachRoleToUser",
-            async handler(ctx) {
-                const { userID, roleID } = ctx.options.parentCtx.params.req.body?.input
+        // detachRoleToUser: {
+        //     rest: "detachRoleToUser",
+        //     async handler(ctx) {
+        //         const { userID, roleID } = ctx.options.parentCtx.params.req.body?.input
 
-                return await AddRoleToUser({ roleID, userID })
-            }
-        }
+        //         return await AddRoleToUser({ roleID, userID })
+        //     }
+        // }
     }
 }

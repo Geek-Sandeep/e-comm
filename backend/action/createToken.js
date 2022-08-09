@@ -1,18 +1,18 @@
 const jwt = require("jsonwebtoken");
 const ENV = require("../utils/env");
-const GetRolesByID = require("./getRolesByID");
+const GetRolesByUserID = require("./getRolesByUserID");
 
 async function createToken({ id, name }) {
     let roleArr = []
 
-    const res = await GetRolesByID(id)
+    const res = await GetRolesByUserID(id)
 
     if (!res.success) {
         return res
     }
 
     for (let i = 0; i < res.data.length; i++) {
-        const name = res.data[i].role.key
+        const name = res.data[i].role_key
         roleArr.push(name)
     }
 
@@ -37,6 +37,7 @@ async function createToken({ id, name }) {
         success: true,
         message: "token created successfully!",
         data: {
+            roles: roleArr,
             token: "Bearer " + token
         }
     }

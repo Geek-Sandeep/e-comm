@@ -1,6 +1,7 @@
 table:
   name: role_permissions
   schema: public
+<<<<<<< HEAD
 object_relationships:
   - name: permission
     using:
@@ -8,3 +9,35 @@ object_relationships:
   - name: role
     using:
       foreign_key_constraint_on: role_id
+=======
+insert_permissions:
+  - role: Super-Admin
+    permission:
+      check: {}
+      columns:
+        - id
+        - permission_id
+        - role_key
+select_permissions:
+  - role: Super-Admin
+    permission:
+      columns:
+        - id
+        - permission_id
+        - role_key
+      filter: {}
+update_permissions:
+  - role: Super-Admin
+    permission:
+      columns:
+        - id
+        - permission_id
+        - role_key
+      filter: {}
+      check: {}
+delete_permissions:
+  - role: Super-Admin
+    permission:
+      backend_only: false
+      filter: {}
+>>>>>>> 5979690ab2be6d63922e11470f4e82e19a458155

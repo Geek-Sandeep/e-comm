@@ -3,7 +3,7 @@ import { Context } from "moleculer"
 const { useGetProductByPkQuery } = require("../src/generated/graphql.ts")
 
 module.exports = {
-    name: "product",
+    name: "products",
     action: {
         getProductByPK: {
             rest: "getproductbypk",
