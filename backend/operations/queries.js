@@ -15,6 +15,24 @@ query ($email: String!) {
     }
 }`
 
+const getRoles = `
+query {
+  roles {
+    key
+    created_at
+    updated_at
+  }
+}`
+
+const getPermissions = `
+query {
+  permissions {
+    key
+    created_at
+    updated_at
+  }
+}`
+
 module.exports = {
-    getRoleByUserID, signin
+    getRoleByUserID, signin, getRoles, getPermissions
 }

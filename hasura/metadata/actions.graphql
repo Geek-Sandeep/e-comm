@@ -12,6 +12,52 @@ type Mutation {
   ): response
 }
 
+type Mutation {
+  deletePermission(
+    permissionName: String!
+  ): response
+}
+
+type Mutation {
+  deleteRole(
+    roleName: String!
+  ): response
+}
+
+type Mutation {
+  detachPermissionToRole(
+    permissionKey: String!
+    roleKey: String!
+  ): response
+}
+
+type Mutation {
+  detachRoleToUser(
+    roleKey: String!
+    userID: uuid!
+  ): response
+}
+
+type Query {
+  getPermissions: listResponse
+}
+
+type Query {
+  getRoles: listResponse
+}
+
+type Mutation {
+  insertPermission(
+    permissionName: String!
+  ): response
+}
+
+type Mutation {
+  insertRole(
+    roleName: String!
+  ): response
+}
+
 type Query {
   signin(
     email: String!
@@ -29,6 +75,11 @@ type Mutation {
 
 input signinInput {
   email: String!
+  password: String!
+}
+
+input SampleInput {
+  username: String!
   password: String!
 }
 
@@ -71,5 +122,21 @@ type signinOutput {
   success: Boolean!
   message: String!
   data: authResponse
+}
+
+type SampleOutput {
+  accessToken: String!
+}
+
+type listResponse {
+  success: Boolean!
+  message: String!
+  data: [lists]
+}
+
+type lists {
+  key: String!
+  created_at: String!
+  updated_at: String!
 }
 

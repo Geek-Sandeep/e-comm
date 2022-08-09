@@ -18,6 +18,13 @@ mutation ($roleKey: String!, $userID: uuid!) {
     }
 }`;
 
+const deleteUserRole = `
+mutation ($roleKey: String!, $userID: uuid!) {
+  delete_user_roles(where: {user_id: {_eq: $userID}, role_key: {_eq: $roleKey}}) {
+    affected_rows
+  }
+}`;
+
 const insertPermissionToRole = `
 mutation ($permissionKey: String!, $roleKey: String!) {
   insert_roles_permissions_one(object: {permission_key: $permissionKey, role_key: $roleKey}) {
@@ -25,6 +32,41 @@ mutation ($permissionKey: String!, $roleKey: String!) {
   }
 }`
 
+const deletePermissionToRole = `
+mutation ($permissionKey: String!, $roleKey: String!) {
+  delete_roles_permissions(where: {permission_key: {_eq: $permissionKey}, role_key: {_eq: $roleKey}}) {
+    affected_rows
+  }
+}`
+
+const insertRole = `
+mutation ($roleName: String!) {
+  insert_roles(objects: {key: $roleName}) {
+    affected_rows
+  }
+}`
+
+const deleteRole = `
+mutation ($roleName: String!) {
+  delete_roles(where: {key: {_eq: $roleName}}) {
+    affected_rows
+  }
+}`
+
+const insertPermission = `
+mutation ($permissionName: String!) {
+  insert_permissions(objects: {key: $permissionName}) {
+    affected_rows
+  }
+}`
+
+const deletePermission = `
+mutation ($permissionName: String!) {
+  delete_permissions(where: {key: {_eq: $permissionName}}) {
+    affected_rows
+  }
+}`
+
 module.exports = {
-  signup, insertUserRole, insertPermissionToRole
+  signup, insertUserRole, deleteUserRole, insertPermissionToRole, deletePermissionToRole, insertRole, deleteRole, insertPermission, deletePermission
 }

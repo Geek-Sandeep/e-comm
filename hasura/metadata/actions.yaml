@@ -13,6 +13,62 @@ actions:
     permissions:
       - role: super_admin
     comment: attachRoleToUser
+  - name: deletePermission
+    definition:
+      kind: synchronous
+      handler: http://host.docker.internal:3000/api/authorization/deletePermission
+    permissions:
+      - role: super_admin
+    comment: deletePermission
+  - name: deleteRole
+    definition:
+      kind: synchronous
+      handler: http://host.docker.internal:3000/api/authorization/deleteRole
+    permissions:
+      - role: super_admin
+    comment: deleteRole
+  - name: detachPermissionToRole
+    definition:
+      kind: synchronous
+      handler: http://host.docker.internal:3000/api/authorization/detachPermissionToRole
+    permissions:
+      - role: super_admin
+    comment: detachPermissionToRole
+  - name: detachRoleToUser
+    definition:
+      kind: synchronous
+      handler: http://host.docker.internal:3000/api/authorization/detachRoleToUser
+    permissions:
+      - role: super_admin
+    comment: detachRoleToUser
+  - name: getPermissions
+    definition:
+      kind: ""
+      handler: http://host.docker.internal:3000/api/authorization/getPermissions
+    permissions:
+      - role: super_admin
+    comment: getPermissions
+  - name: getRoles
+    definition:
+      kind: ""
+      handler: http://host.docker.internal:3000/api/authorization/getRoles
+    permissions:
+      - role: super_admin
+    comment: getRoles
+  - name: insertPermission
+    definition:
+      kind: synchronous
+      handler: http://host.docker.internal:3000/api/authorization/insertPermission
+    permissions:
+      - role: super_admin
+    comment: insertPermission
+  - name: insertRole
+    definition:
+      kind: synchronous
+      handler: http://host.docker.internal:3000/api/authorization/insertRole
+    permissions:
+      - role: super_admin
+    comment: insertRole
   - name: signin
     definition:
       kind: ""
@@ -29,6 +85,7 @@ custom_types:
   enums: []
   input_objects:
     - name: signinInput
+    - name: SampleInput
   objects:
     - name: usersList
     - name: signupOutput
@@ -37,4 +94,7 @@ custom_types:
     - name: response
     - name: authResponse
     - name: signinOutput
+    - name: SampleOutput
+    - name: listResponse
+    - name: lists
   scalars: []
