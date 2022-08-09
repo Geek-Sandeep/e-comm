@@ -4,6 +4,7 @@ actions:
       kind: synchronous
       handler: http://host.docker.internal:3000/api/authorization/attachPermissionToRole
     permissions:
+      - role: super_admin
       - role: Super-Admin
     comment: attachPermissionToRole
   - name: attachRoleToUser

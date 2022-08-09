@@ -19,8 +19,8 @@ mutation ($roleKey: String!, $userID: uuid!) {
 }`;
 
 const insertPermissionToRole = `
-mutation ($permissionID: uuid!, $roleID: uuid!) {
-  insert_role_permissions_one(object: {permission_id: $permissionID, role_id: $roleID}) {
+mutation ($permissionKey: String!, $roleKey: String!) {
+  insert_roles_permissions_one(object: {permission_key: $permissionKey, role_key: $roleKey}) {
     id
   }
 }`

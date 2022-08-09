@@ -1,9 +1,9 @@
 const execute = require('../operations/execute');
 const { insertPermissionToRole } = require('../operations/mutations');
 
-async function AddPermissionToRole({ permissionID, roleID }) {
+async function AddPermissionToRole({ permissionKey, roleKey }) {
     const { data, errors } = await execute({
-        variables: { permissionID, roleID },
+        variables: { permissionKey, roleKey },
         query: insertPermissionToRole
     });
 

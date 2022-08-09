@@ -12,7 +12,7 @@ module.exports = {
         signin: {
             rest: "signin",
             async handler(ctx) {
-                const { email, password } = ctx.options.parentCtx.params.req.body?.input
+                const { email, password } = ctx.params.input
 
                 // execute the Hasura operation
                 const { data, errors } = await execute({

@@ -1,7 +1,7 @@
 type Mutation {
   attachPermissionToRole(
-    permissionID: uuid!
-    roleID: uuid!
+    permissionKey: String!
+    roleKey: String!
   ): response
 }
 
