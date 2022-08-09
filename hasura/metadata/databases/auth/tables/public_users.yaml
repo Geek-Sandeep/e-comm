@@ -9,3 +9,98 @@ array_relationships:
         table:
           name: user_roles
           schema: public
+insert_permissions:
+  - role: Staff
+    permission:
+      check: {}
+      columns:
+        - email
+        - name
+        - password
+        - created_at
+        - updated_at
+        - id
+  - role: Super-Admin
+    permission:
+      check: {}
+      columns:
+        - id
+        - name
+        - email
+        - password
+        - created_at
+        - updated_at
+select_permissions:
+  - role: Staff
+    permission:
+      columns:
+        - created_at
+        - email
+        - id
+        - name
+        - updated_at
+      filter: {}
+  - role: Super-Admin
+    permission:
+      columns:
+        - email
+        - name
+        - password
+        - created_at
+        - updated_at
+        - id
+      filter: {}
+  - role: User
+    permission:
+      columns:
+        - created_at
+        - email
+        - name
+        - password
+        - updated_at
+      filter:
+        id:
+          _eq: X-Hasura-User-Id
+update_permissions:
+  - role: Staff
+    permission:
+      columns:
+        - name
+        - password
+      filter: {}
+      check: null
+  - role: Super-Admin
+    permission:
+      columns:
+        - email
+        - name
+        - password
+        - created_at
+        - updated_at
+        - id
+      filter: {}
+      check: {}
+  - role: User
+    permission:
+      columns:
+        - name
+        - password
+      filter:
+        id:
+          _eq: X-Hasura-User-Id
+      check: null
+delete_permissions:
+  - role: Staff
+    permission:
+      backend_only: false
+      filter: {}
+  - role: Super-Admin
+    permission:
+      backend_only: false
+      filter: {}
+  - role: User
+    permission:
+      backend_only: false
+      filter:
+        id:
+          _eq: X-Hasura-User-Id

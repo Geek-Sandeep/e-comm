@@ -3,13 +3,15 @@ actions:
     definition:
       kind: synchronous
       handler: http://host.docker.internal:3000/api/authorization/attachPermissionToRole
+    permissions:
+      - role: Super-Admin
     comment: attachPermissionToRole
   - name: attachRoleToUser
     definition:
       kind: synchronous
       handler: http://host.docker.internal:3000/api/authorization/attachRoleToUser
     permissions:
-      - role: anonymous
+      - role: Super-Admin
     comment: attachRoleToUser
   - name: signin
     definition:
@@ -17,20 +19,21 @@ actions:
       handler: http://host.docker.internal:3000/api/authentication/signin
     permissions:
       - role: anonymous
-    comment: signin
   - name: signup
     definition:
       kind: synchronous
       handler: http://host.docker.internal:3000/api/authentication/createuser
     permissions:
       - role: anonymous
-    comment: signup
 custom_types:
   enums: []
-  input_objects: []
+  input_objects:
+    - name: signinInput
   objects:
+    - name: usersList
     - name: signupOutput
     - name: token
-    - name: signinOutput
+    - name: singinOutput
     - name: response
+    - name: authResponse
   scalars: []

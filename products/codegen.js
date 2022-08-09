@@ -11,7 +11,7 @@ module.exports = {
     documents: "./src/generated/**/*.gql",
     overwrite: true,
     generates: {
-        './src/generated/graphql.tsx': {
+        './src/generated/graphql.ts': {
             plugins: [
                 'typescript',
                 'typescript-operations',
