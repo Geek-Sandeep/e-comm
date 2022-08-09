@@ -4,6 +4,12 @@ query getMyProducts {
   }
 }
 
+query getProducts($limit: Int!, $offset: Int!, $order: order_by!) {
+  ecom_products(limit: $limit, offset: $offset, order_by: {created_at: $order}) {
+    ...ProductFields
+  }
+}
+
 query getProductByPk($id: uuid!) {
   ecom_products_by_pk(id: $id){
     ...ProductFields
