@@ -3,15 +3,13 @@ actions:
     definition:
       kind: synchronous
       handler: http://host.docker.internal:3000/api/authorization/attachPermissionToRole
-    permissions:
-      - role: Super-Admin
     comment: attachPermissionToRole
   - name: attachRoleToUser
     definition:
       kind: synchronous
       handler: http://host.docker.internal:3000/api/authorization/attachRoleToUser
     permissions:
-      - role: Super-Admin
+      - role: anonymous
     comment: attachRoleToUser
   - name: signin
     definition:

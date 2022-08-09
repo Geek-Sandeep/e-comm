@@ -1,0 +1,23 @@
+mutation insertProducts($input: ecom_products_insert_input!) {
+	insert_ecom_products_one(object: $input) {
+		...ProductFields
+	}
+}
+
+mutation deleteProducts($id: uuid!) {
+    delete_ecom_products_by_pk(id: $id){
+        ...ProductFields
+  }
+}
+
+mutation updateProductByPk($id: uuid!,$input: ecom_products_set_input!) {
+    update_ecom_products_by_pk(pk_columns: {id: $id}, _set: $input){
+            ...ProductFields
+    }
+}
+
+mutation updateProducts($input: ecom_products_set_input){
+     update_ecom_products(_set: input){
+            ...ProductFields
+     }
+}

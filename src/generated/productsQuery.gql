@@ -1,0 +1,19 @@
+query getMyProducts {
+  ecom_products(where: {image: {_is_null: false}}, order_by: {created_at: asc}) {
+    ...ProductFields
+  }
+}
+
+query getProductByPk($id: uuid!) {
+  ecom_products_by_pk(id: $id){
+    ...ProductFields
+  }
+}
+
+fragment ProductFields on ecom_products {
+	id
+  name
+  description
+  image
+  price
+}
