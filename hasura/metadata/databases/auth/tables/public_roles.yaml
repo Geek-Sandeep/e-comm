@@ -16,3 +16,36 @@ array_relationships:
         table:
           name: user_roles
           schema: public
+insert_permissions:
+  - role: Staff
+    permission:
+      check: {}
+      columns:
+        - id
+        - key
+  - role: Super-Admin
+    permission:
+      check: {}
+      columns:
+        - id
+        - key
+select_permissions:
+  - role: Super-Admin
+    permission:
+      columns:
+        - key
+        - id
+      filter: {}
+update_permissions:
+  - role: Super-Admin
+    permission:
+      columns:
+        - key
+        - id
+      filter: {}
+      check: {}
+delete_permissions:
+  - role: Super-Admin
+    permission:
+      backend_only: false
+      filter: {}

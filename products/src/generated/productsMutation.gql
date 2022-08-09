@@ -17,7 +17,7 @@ mutation updateProductByPk($id: uuid!,$input: ecom_products_set_input!) {
 }
 
 mutation updateProducts($input: ecom_products_set_input){
-     update_ecom_products(_set: input){
+     update_ecom_products(_set: $input){
             ...ProductFields
      }
 }
