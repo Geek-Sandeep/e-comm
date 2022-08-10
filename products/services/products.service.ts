@@ -1,19 +1,38 @@
 import { Context } from "moleculer"
+import { gqlSdk } from "../generated-graphql/src/gql-sdk";
 
 
-const { useGetProductByPkQuery } = require("../src/generated/graphql.ts")
 
 /* eslint-disable indent */
 module.exports = {
-    name: "product",
+    name: "products",
     actions: {
-        getproductbypk: {
-            rest: "getproductbypk",
+        getproducts: {
+            rest: "getproducts",
             async handler(ctx: Context<any>) {
-                const { id } = ctx.params.input
+                const { limit, offset, order_by } = ctx.params.input
 
-               
+                try {
+                    const res = await gqlSdk.getProducts({
+                        limit: limit,
+                        offset: offset,
+                        order: order_by
+                    });
+
+                    return {
+                        success: true,
+                        message: "product fetched successfully",
+                        data: res.ecom_products
+                    }
+
+                } catch (error) {
+
+                    return {
+                        success: true,
+                        message: error.response.errors[0].message,
+                    }
+                }
             }
-         }
+        }
     }
 };

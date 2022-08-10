@@ -73,6 +73,13 @@ export type String_Comparison_Exp = {
   _similar?: InputMaybe<Scalars['String']>;
 };
 
+export type BulkProductsOutput = {
+  __typename?: 'bulkProductsOutput';
+  data?: Maybe<Array<Maybe<ProductFields>>>;
+  message: Scalars['String'];
+  success: Scalars['Boolean'];
+};
+
 /** columns and relationships of "ecom.products" */
 export type Ecom_Products = {
   __typename?: 'ecom_products';
@@ -333,6 +340,8 @@ export type Mutation_Root = {
   delete_users?: Maybe<Users_Mutation_Response>;
   /** delete single row from the table: "users" */
   delete_users_by_pk?: Maybe<Users>;
+  /** deleteproductbypk */
+  deleteproductbypk?: Maybe<ProductsOutput>;
   /** insert data into the table: "ecom.products" */
   insert_ecom_products?: Maybe<Ecom_Products_Mutation_Response>;
   /** insert a single row into the table: "ecom.products" */
@@ -357,6 +366,8 @@ export type Mutation_Root = {
   insert_users?: Maybe<Users_Mutation_Response>;
   /** insert a single row into the table: "users" */
   insert_users_one?: Maybe<Users>;
+  /** insertproductone */
+  insertproductone?: Maybe<ProductsOutput>;
   /** signup */
   signup?: Maybe<SignupOutput>;
   /** update data of the table: "ecom.products" */
@@ -383,6 +394,8 @@ export type Mutation_Root = {
   update_users?: Maybe<Users_Mutation_Response>;
   /** update single row of the table: "users" */
   update_users_by_pk?: Maybe<Users>;
+  /** updateproductbypk */
+  updateproductbypk?: Maybe<ProductsOutput>;
 };
 
 
@@ -473,6 +486,12 @@ export type Mutation_RootDelete_Users_By_PkArgs = {
 
 
 /** mutation root */
+export type Mutation_RootDeleteproductbypkArgs = {
+  id: Scalars['uuid'];
+};
+
+
+/** mutation root */
 export type Mutation_RootInsert_Ecom_ProductsArgs = {
   objects: Array<Ecom_Products_Insert_Input>;
   on_conflict?: InputMaybe<Ecom_Products_On_Conflict>;
@@ -553,6 +572,15 @@ export type Mutation_RootInsert_UsersArgs = {
 export type Mutation_RootInsert_Users_OneArgs = {
   object: Users_Insert_Input;
   on_conflict?: InputMaybe<Users_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsertproductoneArgs = {
+  description: Scalars['String'];
+  img?: InputMaybe<Scalars['String']>;
+  name: Scalars['String'];
+  price: Scalars['Int'];
 };
 
 
@@ -647,6 +675,16 @@ export type Mutation_RootUpdate_UsersArgs = {
 export type Mutation_RootUpdate_Users_By_PkArgs = {
   _set?: InputMaybe<Users_Set_Input>;
   pk_columns: Users_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdateproductbypkArgs = {
+  description?: InputMaybe<Scalars['String']>;
+  img?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  price?: InputMaybe<Scalars['Int']>;
+  product_id: Scalars['uuid'];
 };
 
 /** column ordering options */
@@ -831,6 +869,8 @@ export type Query_Root = {
   ecom_products_by_pk?: Maybe<Ecom_Products>;
   /** getproductbypk */
   getproductbypk?: Maybe<ProductsOutput>;
+  /** getproducts */
+  getproducts?: Maybe<BulkProductsOutput>;
   /** fetch data from the table: "permissions" */
   permissions: Array<Permissions>;
   /** fetch aggregated fields from the table: "permissions" */
@@ -891,6 +931,13 @@ export type Query_RootEcom_Products_By_PkArgs = {
 
 export type Query_RootGetproductbypkArgs = {
   id: Scalars['String'];
+};
+
+
+export type Query_RootGetproductsArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Scalars['String']>;
 };
 
 
@@ -1973,9 +2020,9 @@ export type GetMyProductsQueryVariables = Exact<{ [key: string]: never; }>;
 export type GetMyProductsQuery = { __typename?: 'query_root', ecom_products: Array<{ __typename?: 'ecom_products', id: any, name: string, description: string, image?: string | null, price: number }> };
 
 export type GetProductsQueryVariables = Exact<{
-  limit: Scalars['Int'];
-  offset: Scalars['Int'];
-  order: Order_By;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order?: InputMaybe<Order_By>;
 }>;
 
 
@@ -2037,7 +2084,7 @@ export const GetMyProductsDocument = gql`
 }
     ${ProductFieldsFragmentDoc}`;
 export const GetProductsDocument = gql`
-    query getProducts($limit: Int!, $offset: Int!, $order: order_by!) {
+    query getProducts($limit: Int, $offset: Int, $order: order_by) {
   ecom_products(limit: $limit, offset: $offset, order_by: {created_at: $order}) {
     ...ProductFields
   }
@@ -2073,7 +2120,7 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     getMyProducts(variables?: GetMyProductsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetMyProductsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetMyProductsQuery>(GetMyProductsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getMyProducts', 'query');
     },
-    getProducts(variables: GetProductsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetProductsQuery> {
+    getProducts(variables?: GetProductsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetProductsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetProductsQuery>(GetProductsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getProducts', 'query');
     },
     getProductByPk(variables: GetProductByPkQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetProductByPkQuery> {

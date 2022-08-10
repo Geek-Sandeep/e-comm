@@ -11,6 +11,11 @@ actions:
     permissions:
       - role: anonymous
     comment: attachRoleToUser
+  - name: deleteproductbypk
+    definition:
+      kind: synchronous
+      handler: http://host.docker.internal:4000/api/product/deleteproductbypk
+    comment: deleteproductbypk
   - name: getproductbypk
     definition:
       kind: ""
@@ -18,6 +23,16 @@ actions:
     permissions:
       - role: Super-Admin
     comment: getproductbypk
+  - name: getproducts
+    definition:
+      kind: ""
+      handler: http://host.docker.internal:4000/api/products/getproducts
+    comment: getproducts
+  - name: insertproductone
+    definition:
+      kind: synchronous
+      handler: http://host.docker.internal:4000/api/product/insertproductone
+    comment: insertproductone
   - name: signin
     definition:
       kind: ""
@@ -32,9 +47,15 @@ actions:
     permissions:
       - role: anonymous
     comment: signup
+  - name: updateproductbypk
+    definition:
+      kind: synchronous
+      handler: http://host.docker.internal:4000/api/product/updateproductbypk
+    comment: updateproductbypk
 custom_types:
   enums: []
-  input_objects: []
+  input_objects:
+    - name: SampleInput
   objects:
     - name: signupOutput
     - name: token
@@ -42,4 +63,6 @@ custom_types:
     - name: response
     - name: ProductFields
     - name: productsOutput
+    - name: SampleOutput
+    - name: bulkProductsOutput
   scalars: []

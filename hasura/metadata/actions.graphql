@@ -12,9 +12,32 @@ type Mutation {
   ): response
 }
 
+type Mutation {
+  deleteproductbypk(
+    id: uuid!
+  ): productsOutput
+}
+
 type Query {
   getproductbypk(
     id: String!
+  ): productsOutput
+}
+
+type Query {
+  getproducts(
+    limit: Int
+    offset: Int
+    order_by: String
+  ): bulkProductsOutput
+}
+
+type Mutation {
+  insertproductone(
+    name: String!
+    description: String!
+    img: String
+    price: Int!
   ): productsOutput
 }
 
@@ -31,6 +54,21 @@ type Mutation {
     email: String!
     password: String!
   ): signupOutput
+}
+
+type Mutation {
+  updateproductbypk(
+    product_id: uuid!
+    name: String
+    description: String
+    img: String
+    price: Int
+  ): productsOutput
+}
+
+input SampleInput {
+  username: String!
+  password: String!
 }
 
 type signupOutput {
@@ -66,5 +104,15 @@ type productsOutput {
   success: Boolean!
   message: String!
   data: ProductFields
+}
+
+type SampleOutput {
+  accessToken: String!
+}
+
+type bulkProductsOutput {
+  success: Boolean!
+  message: String!
+  data: [ProductFields]
 }
 
