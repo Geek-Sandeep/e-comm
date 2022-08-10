@@ -1,21 +1,19 @@
 import { Context } from "moleculer"
 
+
 const { useGetProductByPkQuery } = require("../src/generated/graphql.ts")
 
+/* eslint-disable indent */
 module.exports = {
     name: "product",
     actions: {
-        getProductByPK: {
+        getproductbypk: {
             rest: "getproductbypk",
             async handler(ctx: Context<any>) {
                 const { id } = ctx.params.input
 
-                console.log("hola hola")
-
-                const { data, loading, error } = useGetProductByPkQuery(id)
-
-                console.log(data, loading, error)
+               
             }
          }
     }
-}
+};

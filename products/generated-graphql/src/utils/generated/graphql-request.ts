@@ -1,11 +1,12 @@
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
+/* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars */
+import { GraphQLClient } from 'graphql-request';
+import * as Dom from 'graphql-request/dist/types.dom';
+import gql from 'graphql-tag';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-const defaultOptions = {} as const;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -28,6 +29,15 @@ export type Int_Comparison_Exp = {
   _lte?: InputMaybe<Scalars['Int']>;
   _neq?: InputMaybe<Scalars['Int']>;
   _nin?: InputMaybe<Array<Scalars['Int']>>;
+};
+
+export type ProductFields = {
+  __typename?: 'ProductFields';
+  description: Scalars['String'];
+  id: Scalars['uuid'];
+  image: Scalars['String'];
+  name: Scalars['String'];
+  price: Scalars['Int'];
 };
 
 /** Boolean expression to compare columns of type "String". All fields are combined with logical 'AND'. */
@@ -885,6 +895,13 @@ export enum Permissions_Update_Column {
   UpdatedAt = 'updated_at'
 }
 
+export type ProductsOutput = {
+  __typename?: 'productsOutput';
+  data?: Maybe<ProductFields>;
+  message: Scalars['String'];
+  success: Scalars['Boolean'];
+};
+
 export type Query_Root = {
   __typename?: 'query_root';
   /** fetch data from the table: "ecom.products" */
@@ -893,10 +910,15 @@ export type Query_Root = {
   ecom_products_aggregate: Ecom_Products_Aggregate;
   /** fetch data from the table: "ecom.products" using primary key columns */
   ecom_products_by_pk?: Maybe<Ecom_Products>;
+<<<<<<< HEAD:products/src/generated/graphql.ts
   /** getPermissions */
   getPermissions?: Maybe<ListResponse>;
   /** getRoles */
   getRoles?: Maybe<ListResponse>;
+=======
+  /** getproductbypk */
+  getproductbypk?: Maybe<ProductsOutput>;
+>>>>>>> fa8718a1d21cd81b7bb9d062afbb56f0ca7702b5:products/generated-graphql/src/utils/generated/graphql-request.ts
   /** fetch data from the table: "permissions" */
   permissions: Array<Permissions>;
   /** fetch aggregated fields from the table: "permissions" */
@@ -951,6 +973,11 @@ export type Query_RootEcom_Products_AggregateArgs = {
 
 export type Query_RootEcom_Products_By_PkArgs = {
   id: Scalars['uuid'];
+};
+
+
+export type Query_RootGetproductbypkArgs = {
+  id: Scalars['String'];
 };
 
 
@@ -2124,32 +2151,6 @@ export const InsertProductOneDocument = gql`
   }
 }
     ${ProductFieldsFragmentDoc}`;
-export type InsertProductOneMutationFn = Apollo.MutationFunction<InsertProductOneMutation, InsertProductOneMutationVariables>;
-
-/**
- * __useInsertProductOneMutation__
- *
- * To run a mutation, you first call `useInsertProductOneMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useInsertProductOneMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [insertProductOneMutation, { data, loading, error }] = useInsertProductOneMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useInsertProductOneMutation(baseOptions?: Apollo.MutationHookOptions<InsertProductOneMutation, InsertProductOneMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<InsertProductOneMutation, InsertProductOneMutationVariables>(InsertProductOneDocument, options);
-      }
-export type InsertProductOneMutationHookResult = ReturnType<typeof useInsertProductOneMutation>;
-export type InsertProductOneMutationResult = Apollo.MutationResult<InsertProductOneMutation>;
-export type InsertProductOneMutationOptions = Apollo.BaseMutationOptions<InsertProductOneMutation, InsertProductOneMutationVariables>;
 export const InsertProductsDocument = gql`
     mutation insertProducts($input: ecom_products_insert_input!) {
   insert_ecom_products(objects: [$input]) {
@@ -2159,32 +2160,6 @@ export const InsertProductsDocument = gql`
   }
 }
     ${ProductFieldsFragmentDoc}`;
-export type InsertProductsMutationFn = Apollo.MutationFunction<InsertProductsMutation, InsertProductsMutationVariables>;
-
-/**
- * __useInsertProductsMutation__
- *
- * To run a mutation, you first call `useInsertProductsMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useInsertProductsMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [insertProductsMutation, { data, loading, error }] = useInsertProductsMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useInsertProductsMutation(baseOptions?: Apollo.MutationHookOptions<InsertProductsMutation, InsertProductsMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<InsertProductsMutation, InsertProductsMutationVariables>(InsertProductsDocument, options);
-      }
-export type InsertProductsMutationHookResult = ReturnType<typeof useInsertProductsMutation>;
-export type InsertProductsMutationResult = Apollo.MutationResult<InsertProductsMutation>;
-export type InsertProductsMutationOptions = Apollo.BaseMutationOptions<InsertProductsMutation, InsertProductsMutationVariables>;
 export const DeleteProductByPkDocument = gql`
     mutation deleteProductByPk($id: uuid!) {
   delete_ecom_products_by_pk(id: $id) {
@@ -2192,32 +2167,6 @@ export const DeleteProductByPkDocument = gql`
   }
 }
     ${ProductFieldsFragmentDoc}`;
-export type DeleteProductByPkMutationFn = Apollo.MutationFunction<DeleteProductByPkMutation, DeleteProductByPkMutationVariables>;
-
-/**
- * __useDeleteProductByPkMutation__
- *
- * To run a mutation, you first call `useDeleteProductByPkMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useDeleteProductByPkMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [deleteProductByPkMutation, { data, loading, error }] = useDeleteProductByPkMutation({
- *   variables: {
- *      id: // value for 'id'
- *   },
- * });
- */
-export function useDeleteProductByPkMutation(baseOptions?: Apollo.MutationHookOptions<DeleteProductByPkMutation, DeleteProductByPkMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<DeleteProductByPkMutation, DeleteProductByPkMutationVariables>(DeleteProductByPkDocument, options);
-      }
-export type DeleteProductByPkMutationHookResult = ReturnType<typeof useDeleteProductByPkMutation>;
-export type DeleteProductByPkMutationResult = Apollo.MutationResult<DeleteProductByPkMutation>;
-export type DeleteProductByPkMutationOptions = Apollo.BaseMutationOptions<DeleteProductByPkMutation, DeleteProductByPkMutationVariables>;
 export const UpdateProductByPkDocument = gql`
     mutation updateProductByPk($id: uuid!, $input: ecom_products_set_input!) {
   update_ecom_products_by_pk(pk_columns: {id: $id}, _set: $input) {
@@ -2225,33 +2174,6 @@ export const UpdateProductByPkDocument = gql`
   }
 }
     ${ProductFieldsFragmentDoc}`;
-export type UpdateProductByPkMutationFn = Apollo.MutationFunction<UpdateProductByPkMutation, UpdateProductByPkMutationVariables>;
-
-/**
- * __useUpdateProductByPkMutation__
- *
- * To run a mutation, you first call `useUpdateProductByPkMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpdateProductByPkMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [updateProductByPkMutation, { data, loading, error }] = useUpdateProductByPkMutation({
- *   variables: {
- *      id: // value for 'id'
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useUpdateProductByPkMutation(baseOptions?: Apollo.MutationHookOptions<UpdateProductByPkMutation, UpdateProductByPkMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<UpdateProductByPkMutation, UpdateProductByPkMutationVariables>(UpdateProductByPkDocument, options);
-      }
-export type UpdateProductByPkMutationHookResult = ReturnType<typeof useUpdateProductByPkMutation>;
-export type UpdateProductByPkMutationResult = Apollo.MutationResult<UpdateProductByPkMutation>;
-export type UpdateProductByPkMutationOptions = Apollo.BaseMutationOptions<UpdateProductByPkMutation, UpdateProductByPkMutationVariables>;
 export const GetMyProductsDocument = gql`
     query getMyProducts {
   ecom_products(where: {image: {_is_null: false}}, order_by: {created_at: asc}) {
@@ -2259,33 +2181,6 @@ export const GetMyProductsDocument = gql`
   }
 }
     ${ProductFieldsFragmentDoc}`;
-
-/**
- * __useGetMyProductsQuery__
- *
- * To run a query within a React component, call `useGetMyProductsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetMyProductsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetMyProductsQuery({
- *   variables: {
- *   },
- * });
- */
-export function useGetMyProductsQuery(baseOptions?: Apollo.QueryHookOptions<GetMyProductsQuery, GetMyProductsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetMyProductsQuery, GetMyProductsQueryVariables>(GetMyProductsDocument, options);
-      }
-export function useGetMyProductsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetMyProductsQuery, GetMyProductsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetMyProductsQuery, GetMyProductsQueryVariables>(GetMyProductsDocument, options);
-        }
-export type GetMyProductsQueryHookResult = ReturnType<typeof useGetMyProductsQuery>;
-export type GetMyProductsLazyQueryHookResult = ReturnType<typeof useGetMyProductsLazyQuery>;
-export type GetMyProductsQueryResult = Apollo.QueryResult<GetMyProductsQuery, GetMyProductsQueryVariables>;
 export const GetProductsDocument = gql`
     query getProducts($limit: Int!, $offset: Int!, $order: order_by!) {
   ecom_products(limit: $limit, offset: $offset, order_by: {created_at: $order}) {
@@ -2293,36 +2188,6 @@ export const GetProductsDocument = gql`
   }
 }
     ${ProductFieldsFragmentDoc}`;
-
-/**
- * __useGetProductsQuery__
- *
- * To run a query within a React component, call `useGetProductsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetProductsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetProductsQuery({
- *   variables: {
- *      limit: // value for 'limit'
- *      offset: // value for 'offset'
- *      order: // value for 'order'
- *   },
- * });
- */
-export function useGetProductsQuery(baseOptions: Apollo.QueryHookOptions<GetProductsQuery, GetProductsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetProductsQuery, GetProductsQueryVariables>(GetProductsDocument, options);
-      }
-export function useGetProductsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetProductsQuery, GetProductsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetProductsQuery, GetProductsQueryVariables>(GetProductsDocument, options);
-        }
-export type GetProductsQueryHookResult = ReturnType<typeof useGetProductsQuery>;
-export type GetProductsLazyQueryHookResult = ReturnType<typeof useGetProductsLazyQuery>;
-export type GetProductsQueryResult = Apollo.QueryResult<GetProductsQuery, GetProductsQueryVariables>;
 export const GetProductByPkDocument = gql`
     query getProductByPk($id: uuid!) {
   ecom_products_by_pk(id: $id) {
@@ -2331,30 +2196,34 @@ export const GetProductByPkDocument = gql`
 }
     ${ProductFieldsFragmentDoc}`;
 
-/**
- * __useGetProductByPkQuery__
- *
- * To run a query within a React component, call `useGetProductByPkQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetProductByPkQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetProductByPkQuery({
- *   variables: {
- *      id: // value for 'id'
- *   },
- * });
- */
-export function useGetProductByPkQuery(baseOptions: Apollo.QueryHookOptions<GetProductByPkQuery, GetProductByPkQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetProductByPkQuery, GetProductByPkQueryVariables>(GetProductByPkDocument, options);
-      }
-export function useGetProductByPkLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetProductByPkQuery, GetProductByPkQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetProductByPkQuery, GetProductByPkQueryVariables>(GetProductByPkDocument, options);
-        }
-export type GetProductByPkQueryHookResult = ReturnType<typeof useGetProductByPkQuery>;
-export type GetProductByPkLazyQueryHookResult = ReturnType<typeof useGetProductByPkLazyQuery>;
-export type GetProductByPkQueryResult = Apollo.QueryResult<GetProductByPkQuery, GetProductByPkQueryVariables>;
+export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string, operationType?: string) => Promise<T>;
+
+
+const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationType) => action();
+
+export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
+  return {
+    insertProductOne(variables: InsertProductOneMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<InsertProductOneMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<InsertProductOneMutation>(InsertProductOneDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'insertProductOne', 'mutation');
+    },
+    insertProducts(variables: InsertProductsMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<InsertProductsMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<InsertProductsMutation>(InsertProductsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'insertProducts', 'mutation');
+    },
+    deleteProductByPk(variables: DeleteProductByPkMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<DeleteProductByPkMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<DeleteProductByPkMutation>(DeleteProductByPkDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'deleteProductByPk', 'mutation');
+    },
+    updateProductByPk(variables: UpdateProductByPkMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<UpdateProductByPkMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<UpdateProductByPkMutation>(UpdateProductByPkDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'updateProductByPk', 'mutation');
+    },
+    getMyProducts(variables?: GetMyProductsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetMyProductsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetMyProductsQuery>(GetMyProductsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getMyProducts', 'query');
+    },
+    getProducts(variables: GetProductsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetProductsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetProductsQuery>(GetProductsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getProducts', 'query');
+    },
+    getProductByPk(variables: GetProductByPkQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetProductByPkQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetProductByPkQuery>(GetProductByPkDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getProductByPk', 'query');
+    }
+  };
+}
+export type Sdk = ReturnType<typeof getSdk>;
