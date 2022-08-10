@@ -2,42 +2,10 @@ table:
   name: permissions
   schema: public
 array_relationships:
-  - name: roles_permissions
+  - name: role_permissions
     using:
       foreign_key_constraint_on:
-        column: permission_key
+        column: permission_id
         table:
-          name: roles_permissions
+          name: role_permissions
           schema: public
-<<<<<<< HEAD
-=======
-insert_permissions:
-  - role: super_admin
-    permission:
-      check: {}
-      columns:
-        - key
-select_permissions:
-  - role: staff
-    permission:
-      columns:
-        - key
-      filter: {}
-  - role: super_admin
-    permission:
-      columns:
-        - key
-      filter: {}
-update_permissions:
-  - role: super_admin
-    permission:
-      columns:
-        - key
-      filter: {}
-      check: {}
-delete_permissions:
-  - role: super_admin
-    permission:
-      backend_only: false
-      filter: {}
->>>>>>> 5979690ab2be6d63922e11470f4e82e19a458155

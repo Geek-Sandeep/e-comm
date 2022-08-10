@@ -2,28 +2,19 @@ table:
   name: products
   schema: ecom
 insert_permissions:
-  - role: super_admin
+  - role: Super-Admin
     permission:
       check: {}
       columns:
         - id
-<<<<<<< HEAD
         - created_at
         - updated_at
         - name
         - description
         - image
         - price
-=======
-        - name
-        - description
-        - image
-        - price
-        - created_at
-        - updated_at
->>>>>>> 5979690ab2be6d63922e11470f4e82e19a458155
 select_permissions:
-  - role: super_admin
+  - role: Super-Admin
     permission:
       columns:
         - price
@@ -35,7 +26,7 @@ select_permissions:
         - id
       filter: {}
 update_permissions:
-  - role: super_admin
+  - role: Super-Admin
     permission:
       columns:
         - price
@@ -48,7 +39,7 @@ update_permissions:
       filter: {}
       check: {}
 delete_permissions:
-  - role: super_admin
+  - role: Super-Admin
     permission:
       backend_only: false
       filter: {}

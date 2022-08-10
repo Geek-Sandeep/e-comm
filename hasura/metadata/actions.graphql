@@ -1,13 +1,13 @@
 type Mutation {
   attachPermissionToRole(
-    permissionKey: String!
-    roleKey: String!
+    roleID: uuid!
+    permissionID: uuid!
   ): response
 }
 
 type Mutation {
   attachRoleToUser(
-    roleKey: String!
+    roleID: uuid!
     userID: uuid!
   ): response
 }
@@ -66,19 +66,5 @@ type productsOutput {
   success: Boolean!
   message: String!
   data: ProductFields
-}
-
-type authResponse {
-  id: uuid!
-  name: String!
-  email: String!
-  roles: [String]
-  token: String!
-}
-
-type signinOutput {
-  success: Boolean!
-  message: String!
-  data: authResponse
 }
 

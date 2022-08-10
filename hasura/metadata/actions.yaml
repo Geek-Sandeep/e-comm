@@ -3,20 +3,18 @@ actions:
     definition:
       kind: synchronous
       handler: http://host.docker.internal:3000/api/authorization/attachPermissionToRole
-    permissions:
-      - role: super_admin
     comment: attachPermissionToRole
   - name: attachRoleToUser
     definition:
       kind: synchronous
       handler: http://host.docker.internal:3000/api/authorization/attachRoleToUser
     permissions:
-      - role: super_admin
+      - role: anonymous
     comment: attachRoleToUser
   - name: getproductbypk
     definition:
       kind: ""
-      handler: http://host.docker.internal:4000/api/products/getproductbypk
+      handler: http://host.docker.internal:4000/api/product/getproductbypk
     permissions:
       - role: Super-Admin
     comment: getproductbypk
@@ -44,6 +42,4 @@ custom_types:
     - name: response
     - name: ProductFields
     - name: productsOutput
-    - name: authResponse
-    - name: signinOutput
   scalars: []
