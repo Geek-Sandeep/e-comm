@@ -49,11 +49,7 @@ actions:
   - name: getRoles
     definition:
       kind: ""
-<<<<<<< HEAD
       handler: http://host.docker.internal:3000/api/authorization/getRoles
-=======
-      handler: http://host.docker.internal:4000/api/product/getproductbypk
->>>>>>> fa8718a1d21cd81b7bb9d062afbb56f0ca7702b5
     permissions:
       - role: super_admin
     comment: getRoles

@@ -15,4 +15,3 @@ FOR EACH ROW
 EXECUTE PROCEDURE "public"."set_current_timestamp_updated_at"();
 COMMENT ON TRIGGER "set_public_roles_permissions_updated_at" ON "public"."roles_permissions" 
 IS 'trigger to set value of column "updated_at" to current timestamp on row update';
-CREATE EXTENSION IF NOT EXISTS pgcrypto;

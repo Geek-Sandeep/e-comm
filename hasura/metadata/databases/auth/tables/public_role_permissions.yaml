@@ -4,7 +4,7 @@ table:
 object_relationships:
   - name: permission
     using:
-      foreign_key_constraint_on: permission_id
+      foreign_key_constraint_on: permission_key
   - name: role
     using:
-      foreign_key_constraint_on: role_id
+      foreign_key_constraint_on: role_key

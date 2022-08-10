@@ -7,20 +7,12 @@ insert_permissions:
       check: {}
       columns:
         - id
-<<<<<<< HEAD
-=======
-        - created_at
-        - updated_at
->>>>>>> fa8718a1d21cd81b7bb9d062afbb56f0ca7702b5
         - name
         - description
         - image
         - price
-<<<<<<< HEAD
         - created_at
         - updated_at
-=======
->>>>>>> fa8718a1d21cd81b7bb9d062afbb56f0ca7702b5
 select_permissions:
   - role: Super-Admin
     permission:

@@ -4,11 +4,10 @@ table:
 object_relationships:
   - name: role
     using:
-      foreign_key_constraint_on: role_id
+      foreign_key_constraint_on: role_key
   - name: user
     using:
       foreign_key_constraint_on: user_id
-<<<<<<< HEAD
 insert_permissions:
   - role: super_admin
     permission:
@@ -46,5 +45,3 @@ delete_permissions:
     permission:
       backend_only: false
       filter: {}
-=======
->>>>>>> fa8718a1d21cd81b7bb9d062afbb56f0ca7702b5
