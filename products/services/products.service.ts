@@ -4,11 +4,13 @@ const { useGetProductByPkQuery } = require("../src/generated/graphql.tsx")
 
 module.exports = {
     name: "product",
-    action: {
+    actions: {
         getProductByPK: {
             rest: "getproductbypk",
             async handler(ctx: Context<any>) {
-                const { id } = ctx.params.req.body?.input
+                const { id } = ctx.params.input
+
+                console.log("hola hola")
 
                 const { data, loading, error } = useGetProductByPkQuery(id)
 
