@@ -6,6 +6,7 @@ const DetachPermissionToRole = require("../action/detachPermissionToRole")
 const DetachRoleToUser = require("../action/detachRoleToUser")
 const GetPermissions = require("../action/getPermissions")
 const GetRoles = require("../action/getRoles")
+const GetUsers = require("../action/getUsers")
 const InsertPermission = require("../action/insertPermission")
 const InsertRole = require("../action/insertRole")
 
@@ -86,6 +87,14 @@ module.exports = {
             rest: "getPermissions",
             async handler(ctx) {
                 return await GetPermissions()
+            }
+        },
+
+        // get all users 
+        getUsers: {
+            rest: "getUsers",
+            async handler(ctx) {
+                return await GetUsers()
             }
         }
     }

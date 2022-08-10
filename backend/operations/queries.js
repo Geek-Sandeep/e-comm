@@ -33,6 +33,18 @@ query {
   }
 }`
 
+const getUsers = `
+query {
+  users {
+    id
+    name
+    email
+    user_roles {
+      role_key
+    }
+  }
+}`
+
 module.exports = {
-    getRoleByUserID, signin, getRoles, getPermissions
+  getRoleByUserID, signin, getRoles, getPermissions, getUsers
 }

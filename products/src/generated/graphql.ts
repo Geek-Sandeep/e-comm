@@ -63,6 +63,15 @@ export type String_Comparison_Exp = {
   _similar?: InputMaybe<Scalars['String']>;
 };
 
+export type AuthResponse = {
+  __typename?: 'authResponse';
+  email: Scalars['String'];
+  id: Scalars['String'];
+  name: Scalars['String'];
+  roles?: Maybe<Array<Maybe<Scalars['String']>>>;
+  token: Scalars['String'];
+};
+
 /** columns and relationships of "ecom.products" */
 export type Ecom_Products = {
   __typename?: 'ecom_products';
@@ -292,6 +301,20 @@ export type Ecom_Products_Variance_Fields = {
   price?: Maybe<Scalars['Float']>;
 };
 
+export type ListResponse = {
+  __typename?: 'listResponse';
+  data?: Maybe<Array<Maybe<Lists>>>;
+  message: Scalars['String'];
+  success: Scalars['Boolean'];
+};
+
+export type Lists = {
+  __typename?: 'lists';
+  created_at: Scalars['String'];
+  key: Scalars['String'];
+  updated_at: Scalars['String'];
+};
+
 /** mutation root */
 export type Mutation_Root = {
   __typename?: 'mutation_root';
@@ -299,6 +322,10 @@ export type Mutation_Root = {
   attachPermissionToRole?: Maybe<Response>;
   /** attachRoleToUser */
   attachRoleToUser?: Maybe<Response>;
+  /** deletePermission */
+  deletePermission?: Maybe<Response>;
+  /** deleteRole */
+  deleteRole?: Maybe<Response>;
   /** delete data from the table: "ecom.products" */
   delete_ecom_products?: Maybe<Ecom_Products_Mutation_Response>;
   /** delete single row from the table: "ecom.products" */
@@ -307,14 +334,14 @@ export type Mutation_Root = {
   delete_permissions?: Maybe<Permissions_Mutation_Response>;
   /** delete single row from the table: "permissions" */
   delete_permissions_by_pk?: Maybe<Permissions>;
-  /** delete data from the table: "role_permissions" */
-  delete_role_permissions?: Maybe<Role_Permissions_Mutation_Response>;
-  /** delete single row from the table: "role_permissions" */
-  delete_role_permissions_by_pk?: Maybe<Role_Permissions>;
   /** delete data from the table: "roles" */
   delete_roles?: Maybe<Roles_Mutation_Response>;
   /** delete single row from the table: "roles" */
   delete_roles_by_pk?: Maybe<Roles>;
+  /** delete data from the table: "roles_permissions" */
+  delete_roles_permissions?: Maybe<Roles_Permissions_Mutation_Response>;
+  /** delete single row from the table: "roles_permissions" */
+  delete_roles_permissions_by_pk?: Maybe<Roles_Permissions>;
   /** delete data from the table: "user_roles" */
   delete_user_roles?: Maybe<User_Roles_Mutation_Response>;
   /** delete single row from the table: "user_roles" */
@@ -323,6 +350,14 @@ export type Mutation_Root = {
   delete_users?: Maybe<Users_Mutation_Response>;
   /** delete single row from the table: "users" */
   delete_users_by_pk?: Maybe<Users>;
+  /** detachPermissionToRole */
+  detachPermissionToRole?: Maybe<Response>;
+  /** detachRoleToUser */
+  detachRoleToUser?: Maybe<Response>;
+  /** insertPermission */
+  insertPermission?: Maybe<Response>;
+  /** insertRole */
+  insertRole?: Maybe<Response>;
   /** insert data into the table: "ecom.products" */
   insert_ecom_products?: Maybe<Ecom_Products_Mutation_Response>;
   /** insert a single row into the table: "ecom.products" */
@@ -331,14 +366,14 @@ export type Mutation_Root = {
   insert_permissions?: Maybe<Permissions_Mutation_Response>;
   /** insert a single row into the table: "permissions" */
   insert_permissions_one?: Maybe<Permissions>;
-  /** insert data into the table: "role_permissions" */
-  insert_role_permissions?: Maybe<Role_Permissions_Mutation_Response>;
-  /** insert a single row into the table: "role_permissions" */
-  insert_role_permissions_one?: Maybe<Role_Permissions>;
   /** insert data into the table: "roles" */
   insert_roles?: Maybe<Roles_Mutation_Response>;
   /** insert a single row into the table: "roles" */
   insert_roles_one?: Maybe<Roles>;
+  /** insert data into the table: "roles_permissions" */
+  insert_roles_permissions?: Maybe<Roles_Permissions_Mutation_Response>;
+  /** insert a single row into the table: "roles_permissions" */
+  insert_roles_permissions_one?: Maybe<Roles_Permissions>;
   /** insert data into the table: "user_roles" */
   insert_user_roles?: Maybe<User_Roles_Mutation_Response>;
   /** insert a single row into the table: "user_roles" */
@@ -347,7 +382,6 @@ export type Mutation_Root = {
   insert_users?: Maybe<Users_Mutation_Response>;
   /** insert a single row into the table: "users" */
   insert_users_one?: Maybe<Users>;
-  /** signup */
   signup?: Maybe<SignupOutput>;
   /** update data of the table: "ecom.products" */
   update_ecom_products?: Maybe<Ecom_Products_Mutation_Response>;
@@ -357,14 +391,14 @@ export type Mutation_Root = {
   update_permissions?: Maybe<Permissions_Mutation_Response>;
   /** update single row of the table: "permissions" */
   update_permissions_by_pk?: Maybe<Permissions>;
-  /** update data of the table: "role_permissions" */
-  update_role_permissions?: Maybe<Role_Permissions_Mutation_Response>;
-  /** update single row of the table: "role_permissions" */
-  update_role_permissions_by_pk?: Maybe<Role_Permissions>;
   /** update data of the table: "roles" */
   update_roles?: Maybe<Roles_Mutation_Response>;
   /** update single row of the table: "roles" */
   update_roles_by_pk?: Maybe<Roles>;
+  /** update data of the table: "roles_permissions" */
+  update_roles_permissions?: Maybe<Roles_Permissions_Mutation_Response>;
+  /** update single row of the table: "roles_permissions" */
+  update_roles_permissions_by_pk?: Maybe<Roles_Permissions>;
   /** update data of the table: "user_roles" */
   update_user_roles?: Maybe<User_Roles_Mutation_Response>;
   /** update single row of the table: "user_roles" */
@@ -378,15 +412,27 @@ export type Mutation_Root = {
 
 /** mutation root */
 export type Mutation_RootAttachPermissionToRoleArgs = {
-  permissionID: Scalars['uuid'];
-  roleID: Scalars['uuid'];
+  permissionKey: Scalars['String'];
+  roleKey: Scalars['String'];
 };
 
 
 /** mutation root */
 export type Mutation_RootAttachRoleToUserArgs = {
-  roleID: Scalars['uuid'];
+  roleKey: Scalars['String'];
   userID: Scalars['uuid'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDeletePermissionArgs = {
+  permissionName: Scalars['String'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDeleteRoleArgs = {
+  roleName: Scalars['String'];
 };
 
 
@@ -410,19 +456,7 @@ export type Mutation_RootDelete_PermissionsArgs = {
 
 /** mutation root */
 export type Mutation_RootDelete_Permissions_By_PkArgs = {
-  id: Scalars['uuid'];
-};
-
-
-/** mutation root */
-export type Mutation_RootDelete_Role_PermissionsArgs = {
-  where: Role_Permissions_Bool_Exp;
-};
-
-
-/** mutation root */
-export type Mutation_RootDelete_Role_Permissions_By_PkArgs = {
-  id: Scalars['uuid'];
+  key: Scalars['String'];
 };
 
 
@@ -434,6 +468,18 @@ export type Mutation_RootDelete_RolesArgs = {
 
 /** mutation root */
 export type Mutation_RootDelete_Roles_By_PkArgs = {
+  key: Scalars['String'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Roles_PermissionsArgs = {
+  where: Roles_Permissions_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Roles_Permissions_By_PkArgs = {
   id: Scalars['uuid'];
 };
 
@@ -459,6 +505,32 @@ export type Mutation_RootDelete_UsersArgs = {
 /** mutation root */
 export type Mutation_RootDelete_Users_By_PkArgs = {
   id: Scalars['uuid'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDetachPermissionToRoleArgs = {
+  permissionKey: Scalars['String'];
+  roleKey: Scalars['String'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDetachRoleToUserArgs = {
+  roleKey: Scalars['String'];
+  userID: Scalars['uuid'];
+};
+
+
+/** mutation root */
+export type Mutation_RootInsertPermissionArgs = {
+  permissionName: Scalars['String'];
+};
+
+
+/** mutation root */
+export type Mutation_RootInsertRoleArgs = {
+  roleName: Scalars['String'];
 };
 
 
@@ -491,20 +563,6 @@ export type Mutation_RootInsert_Permissions_OneArgs = {
 
 
 /** mutation root */
-export type Mutation_RootInsert_Role_PermissionsArgs = {
-  objects: Array<Role_Permissions_Insert_Input>;
-  on_conflict?: InputMaybe<Role_Permissions_On_Conflict>;
-};
-
-
-/** mutation root */
-export type Mutation_RootInsert_Role_Permissions_OneArgs = {
-  object: Role_Permissions_Insert_Input;
-  on_conflict?: InputMaybe<Role_Permissions_On_Conflict>;
-};
-
-
-/** mutation root */
 export type Mutation_RootInsert_RolesArgs = {
   objects: Array<Roles_Insert_Input>;
   on_conflict?: InputMaybe<Roles_On_Conflict>;
@@ -515,6 +573,20 @@ export type Mutation_RootInsert_RolesArgs = {
 export type Mutation_RootInsert_Roles_OneArgs = {
   object: Roles_Insert_Input;
   on_conflict?: InputMaybe<Roles_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Roles_PermissionsArgs = {
+  objects: Array<Roles_Permissions_Insert_Input>;
+  on_conflict?: InputMaybe<Roles_Permissions_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Roles_Permissions_OneArgs = {
+  object: Roles_Permissions_Insert_Input;
+  on_conflict?: InputMaybe<Roles_Permissions_On_Conflict>;
 };
 
 
@@ -585,20 +657,6 @@ export type Mutation_RootUpdate_Permissions_By_PkArgs = {
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Role_PermissionsArgs = {
-  _set?: InputMaybe<Role_Permissions_Set_Input>;
-  where: Role_Permissions_Bool_Exp;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdate_Role_Permissions_By_PkArgs = {
-  _set?: InputMaybe<Role_Permissions_Set_Input>;
-  pk_columns: Role_Permissions_Pk_Columns_Input;
-};
-
-
-/** mutation root */
 export type Mutation_RootUpdate_RolesArgs = {
   _set?: InputMaybe<Roles_Set_Input>;
   where: Roles_Bool_Exp;
@@ -609,6 +667,20 @@ export type Mutation_RootUpdate_RolesArgs = {
 export type Mutation_RootUpdate_Roles_By_PkArgs = {
   _set?: InputMaybe<Roles_Set_Input>;
   pk_columns: Roles_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Roles_PermissionsArgs = {
+  _set?: InputMaybe<Roles_Permissions_Set_Input>;
+  where: Roles_Permissions_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Roles_Permissions_By_PkArgs = {
+  _set?: InputMaybe<Roles_Permissions_Set_Input>;
+  pk_columns: Roles_Permissions_Pk_Columns_Input;
 };
 
 
@@ -658,32 +730,33 @@ export enum Order_By {
 /** columns and relationships of "permissions" */
 export type Permissions = {
   __typename?: 'permissions';
-  id: Scalars['uuid'];
+  created_at: Scalars['timestamptz'];
   key: Scalars['String'];
   /** An array relationship */
-  role_permissions: Array<Role_Permissions>;
+  roles_permissions: Array<Roles_Permissions>;
   /** An aggregate relationship */
-  role_permissions_aggregate: Role_Permissions_Aggregate;
+  roles_permissions_aggregate: Roles_Permissions_Aggregate;
+  updated_at: Scalars['timestamptz'];
 };
 
 
 /** columns and relationships of "permissions" */
-export type PermissionsRole_PermissionsArgs = {
-  distinct_on?: InputMaybe<Array<Role_Permissions_Select_Column>>;
+export type PermissionsRoles_PermissionsArgs = {
+  distinct_on?: InputMaybe<Array<Roles_Permissions_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
-  order_by?: InputMaybe<Array<Role_Permissions_Order_By>>;
-  where?: InputMaybe<Role_Permissions_Bool_Exp>;
+  order_by?: InputMaybe<Array<Roles_Permissions_Order_By>>;
+  where?: InputMaybe<Roles_Permissions_Bool_Exp>;
 };
 
 
 /** columns and relationships of "permissions" */
-export type PermissionsRole_Permissions_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Role_Permissions_Select_Column>>;
+export type PermissionsRoles_Permissions_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Roles_Permissions_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
-  order_by?: InputMaybe<Array<Role_Permissions_Order_By>>;
-  where?: InputMaybe<Role_Permissions_Bool_Exp>;
+  order_by?: InputMaybe<Array<Roles_Permissions_Order_By>>;
+  where?: InputMaybe<Roles_Permissions_Bool_Exp>;
 };
 
 /** aggregated selection of "permissions" */
@@ -713,38 +786,40 @@ export type Permissions_Bool_Exp = {
   _and?: InputMaybe<Array<Permissions_Bool_Exp>>;
   _not?: InputMaybe<Permissions_Bool_Exp>;
   _or?: InputMaybe<Array<Permissions_Bool_Exp>>;
-  id?: InputMaybe<Uuid_Comparison_Exp>;
+  created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
   key?: InputMaybe<String_Comparison_Exp>;
-  role_permissions?: InputMaybe<Role_Permissions_Bool_Exp>;
+  roles_permissions?: InputMaybe<Roles_Permissions_Bool_Exp>;
+  updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
 };
 
 /** unique or primary key constraints on table "permissions" */
 export enum Permissions_Constraint {
   /** unique or primary key constraint on columns "key" */
-  PermissionsKeyKey = 'permissions_key_key',
-  /** unique or primary key constraint on columns "id" */
   PermissionsPkey = 'permissions_pkey'
 }
 
 /** input type for inserting data into table "permissions" */
 export type Permissions_Insert_Input = {
-  id?: InputMaybe<Scalars['uuid']>;
+  created_at?: InputMaybe<Scalars['timestamptz']>;
   key?: InputMaybe<Scalars['String']>;
-  role_permissions?: InputMaybe<Role_Permissions_Arr_Rel_Insert_Input>;
+  roles_permissions?: InputMaybe<Roles_Permissions_Arr_Rel_Insert_Input>;
+  updated_at?: InputMaybe<Scalars['timestamptz']>;
 };
 
 /** aggregate max on columns */
 export type Permissions_Max_Fields = {
   __typename?: 'permissions_max_fields';
-  id?: Maybe<Scalars['uuid']>;
+  created_at?: Maybe<Scalars['timestamptz']>;
   key?: Maybe<Scalars['String']>;
+  updated_at?: Maybe<Scalars['timestamptz']>;
 };
 
 /** aggregate min on columns */
 export type Permissions_Min_Fields = {
   __typename?: 'permissions_min_fields';
-  id?: Maybe<Scalars['uuid']>;
+  created_at?: Maybe<Scalars['timestamptz']>;
   key?: Maybe<Scalars['String']>;
+  updated_at?: Maybe<Scalars['timestamptz']>;
 };
 
 /** response of any mutation on the table "permissions" */
@@ -772,36 +847,42 @@ export type Permissions_On_Conflict = {
 
 /** Ordering options when selecting data from "permissions". */
 export type Permissions_Order_By = {
-  id?: InputMaybe<Order_By>;
+  created_at?: InputMaybe<Order_By>;
   key?: InputMaybe<Order_By>;
-  role_permissions_aggregate?: InputMaybe<Role_Permissions_Aggregate_Order_By>;
+  roles_permissions_aggregate?: InputMaybe<Roles_Permissions_Aggregate_Order_By>;
+  updated_at?: InputMaybe<Order_By>;
 };
 
 /** primary key columns input for table: permissions */
 export type Permissions_Pk_Columns_Input = {
-  id: Scalars['uuid'];
+  key: Scalars['String'];
 };
 
 /** select columns of table "permissions" */
 export enum Permissions_Select_Column {
   /** column name */
-  Id = 'id',
+  CreatedAt = 'created_at',
   /** column name */
-  Key = 'key'
+  Key = 'key',
+  /** column name */
+  UpdatedAt = 'updated_at'
 }
 
 /** input type for updating data in table "permissions" */
 export type Permissions_Set_Input = {
-  id?: InputMaybe<Scalars['uuid']>;
+  created_at?: InputMaybe<Scalars['timestamptz']>;
   key?: InputMaybe<Scalars['String']>;
+  updated_at?: InputMaybe<Scalars['timestamptz']>;
 };
 
 /** update columns of table "permissions" */
 export enum Permissions_Update_Column {
   /** column name */
-  Id = 'id',
+  CreatedAt = 'created_at',
   /** column name */
-  Key = 'key'
+  Key = 'key',
+  /** column name */
+  UpdatedAt = 'updated_at'
 }
 
 export type Query_Root = {
@@ -812,25 +893,28 @@ export type Query_Root = {
   ecom_products_aggregate: Ecom_Products_Aggregate;
   /** fetch data from the table: "ecom.products" using primary key columns */
   ecom_products_by_pk?: Maybe<Ecom_Products>;
+  /** getPermissions */
+  getPermissions?: Maybe<ListResponse>;
+  /** getRoles */
+  getRoles?: Maybe<ListResponse>;
   /** fetch data from the table: "permissions" */
   permissions: Array<Permissions>;
   /** fetch aggregated fields from the table: "permissions" */
   permissions_aggregate: Permissions_Aggregate;
   /** fetch data from the table: "permissions" using primary key columns */
   permissions_by_pk?: Maybe<Permissions>;
-  /** An array relationship */
-  role_permissions: Array<Role_Permissions>;
-  /** An aggregate relationship */
-  role_permissions_aggregate: Role_Permissions_Aggregate;
-  /** fetch data from the table: "role_permissions" using primary key columns */
-  role_permissions_by_pk?: Maybe<Role_Permissions>;
   /** fetch data from the table: "roles" */
   roles: Array<Roles>;
   /** fetch aggregated fields from the table: "roles" */
   roles_aggregate: Roles_Aggregate;
   /** fetch data from the table: "roles" using primary key columns */
   roles_by_pk?: Maybe<Roles>;
-  /** signin */
+  /** An array relationship */
+  roles_permissions: Array<Roles_Permissions>;
+  /** An aggregate relationship */
+  roles_permissions_aggregate: Roles_Permissions_Aggregate;
+  /** fetch data from the table: "roles_permissions" using primary key columns */
+  roles_permissions_by_pk?: Maybe<Roles_Permissions>;
   signin?: Maybe<SigninOutput>;
   /** An array relationship */
   user_roles: Array<User_Roles>;
@@ -889,30 +973,7 @@ export type Query_RootPermissions_AggregateArgs = {
 
 
 export type Query_RootPermissions_By_PkArgs = {
-  id: Scalars['uuid'];
-};
-
-
-export type Query_RootRole_PermissionsArgs = {
-  distinct_on?: InputMaybe<Array<Role_Permissions_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
-  order_by?: InputMaybe<Array<Role_Permissions_Order_By>>;
-  where?: InputMaybe<Role_Permissions_Bool_Exp>;
-};
-
-
-export type Query_RootRole_Permissions_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Role_Permissions_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
-  order_by?: InputMaybe<Array<Role_Permissions_Order_By>>;
-  where?: InputMaybe<Role_Permissions_Bool_Exp>;
-};
-
-
-export type Query_RootRole_Permissions_By_PkArgs = {
-  id: Scalars['uuid'];
+  key: Scalars['String'];
 };
 
 
@@ -935,6 +996,29 @@ export type Query_RootRoles_AggregateArgs = {
 
 
 export type Query_RootRoles_By_PkArgs = {
+  key: Scalars['String'];
+};
+
+
+export type Query_RootRoles_PermissionsArgs = {
+  distinct_on?: InputMaybe<Array<Roles_Permissions_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Roles_Permissions_Order_By>>;
+  where?: InputMaybe<Roles_Permissions_Bool_Exp>;
+};
+
+
+export type Query_RootRoles_Permissions_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Roles_Permissions_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Roles_Permissions_Order_By>>;
+  where?: InputMaybe<Roles_Permissions_Bool_Exp>;
+};
+
+
+export type Query_RootRoles_Permissions_By_PkArgs = {
   id: Scalars['uuid'];
 };
 
@@ -996,179 +1080,16 @@ export type Response = {
   success: Scalars['Boolean'];
 };
 
-/** columns and relationships of "role_permissions" */
-export type Role_Permissions = {
-  __typename?: 'role_permissions';
-  id: Scalars['uuid'];
-  /** An object relationship */
-  permission: Permissions;
-  permission_id: Scalars['uuid'];
-  /** An object relationship */
-  role: Roles;
-  role_id: Scalars['uuid'];
-};
-
-/** aggregated selection of "role_permissions" */
-export type Role_Permissions_Aggregate = {
-  __typename?: 'role_permissions_aggregate';
-  aggregate?: Maybe<Role_Permissions_Aggregate_Fields>;
-  nodes: Array<Role_Permissions>;
-};
-
-/** aggregate fields of "role_permissions" */
-export type Role_Permissions_Aggregate_Fields = {
-  __typename?: 'role_permissions_aggregate_fields';
-  count: Scalars['Int'];
-  max?: Maybe<Role_Permissions_Max_Fields>;
-  min?: Maybe<Role_Permissions_Min_Fields>;
-};
-
-
-/** aggregate fields of "role_permissions" */
-export type Role_Permissions_Aggregate_FieldsCountArgs = {
-  columns?: InputMaybe<Array<Role_Permissions_Select_Column>>;
-  distinct?: InputMaybe<Scalars['Boolean']>;
-};
-
-/** order by aggregate values of table "role_permissions" */
-export type Role_Permissions_Aggregate_Order_By = {
-  count?: InputMaybe<Order_By>;
-  max?: InputMaybe<Role_Permissions_Max_Order_By>;
-  min?: InputMaybe<Role_Permissions_Min_Order_By>;
-};
-
-/** input type for inserting array relation for remote table "role_permissions" */
-export type Role_Permissions_Arr_Rel_Insert_Input = {
-  data: Array<Role_Permissions_Insert_Input>;
-  /** upsert condition */
-  on_conflict?: InputMaybe<Role_Permissions_On_Conflict>;
-};
-
-/** Boolean expression to filter rows from the table "role_permissions". All fields are combined with a logical 'AND'. */
-export type Role_Permissions_Bool_Exp = {
-  _and?: InputMaybe<Array<Role_Permissions_Bool_Exp>>;
-  _not?: InputMaybe<Role_Permissions_Bool_Exp>;
-  _or?: InputMaybe<Array<Role_Permissions_Bool_Exp>>;
-  id?: InputMaybe<Uuid_Comparison_Exp>;
-  permission?: InputMaybe<Permissions_Bool_Exp>;
-  permission_id?: InputMaybe<Uuid_Comparison_Exp>;
-  role?: InputMaybe<Roles_Bool_Exp>;
-  role_id?: InputMaybe<Uuid_Comparison_Exp>;
-};
-
-/** unique or primary key constraints on table "role_permissions" */
-export enum Role_Permissions_Constraint {
-  /** unique or primary key constraint on columns "id" */
-  RolePermissionsPkey = 'role_permissions_pkey',
-  /** unique or primary key constraint on columns "role_id", "permission_id" */
-  RolePermissionsRoleIdPermissionIdKey = 'role_permissions_role_id_permission_id_key'
-}
-
-/** input type for inserting data into table "role_permissions" */
-export type Role_Permissions_Insert_Input = {
-  id?: InputMaybe<Scalars['uuid']>;
-  permission?: InputMaybe<Permissions_Obj_Rel_Insert_Input>;
-  permission_id?: InputMaybe<Scalars['uuid']>;
-  role?: InputMaybe<Roles_Obj_Rel_Insert_Input>;
-  role_id?: InputMaybe<Scalars['uuid']>;
-};
-
-/** aggregate max on columns */
-export type Role_Permissions_Max_Fields = {
-  __typename?: 'role_permissions_max_fields';
-  id?: Maybe<Scalars['uuid']>;
-  permission_id?: Maybe<Scalars['uuid']>;
-  role_id?: Maybe<Scalars['uuid']>;
-};
-
-/** order by max() on columns of table "role_permissions" */
-export type Role_Permissions_Max_Order_By = {
-  id?: InputMaybe<Order_By>;
-  permission_id?: InputMaybe<Order_By>;
-  role_id?: InputMaybe<Order_By>;
-};
-
-/** aggregate min on columns */
-export type Role_Permissions_Min_Fields = {
-  __typename?: 'role_permissions_min_fields';
-  id?: Maybe<Scalars['uuid']>;
-  permission_id?: Maybe<Scalars['uuid']>;
-  role_id?: Maybe<Scalars['uuid']>;
-};
-
-/** order by min() on columns of table "role_permissions" */
-export type Role_Permissions_Min_Order_By = {
-  id?: InputMaybe<Order_By>;
-  permission_id?: InputMaybe<Order_By>;
-  role_id?: InputMaybe<Order_By>;
-};
-
-/** response of any mutation on the table "role_permissions" */
-export type Role_Permissions_Mutation_Response = {
-  __typename?: 'role_permissions_mutation_response';
-  /** number of rows affected by the mutation */
-  affected_rows: Scalars['Int'];
-  /** data from the rows affected by the mutation */
-  returning: Array<Role_Permissions>;
-};
-
-/** on_conflict condition type for table "role_permissions" */
-export type Role_Permissions_On_Conflict = {
-  constraint: Role_Permissions_Constraint;
-  update_columns?: Array<Role_Permissions_Update_Column>;
-  where?: InputMaybe<Role_Permissions_Bool_Exp>;
-};
-
-/** Ordering options when selecting data from "role_permissions". */
-export type Role_Permissions_Order_By = {
-  id?: InputMaybe<Order_By>;
-  permission?: InputMaybe<Permissions_Order_By>;
-  permission_id?: InputMaybe<Order_By>;
-  role?: InputMaybe<Roles_Order_By>;
-  role_id?: InputMaybe<Order_By>;
-};
-
-/** primary key columns input for table: role_permissions */
-export type Role_Permissions_Pk_Columns_Input = {
-  id: Scalars['uuid'];
-};
-
-/** select columns of table "role_permissions" */
-export enum Role_Permissions_Select_Column {
-  /** column name */
-  Id = 'id',
-  /** column name */
-  PermissionId = 'permission_id',
-  /** column name */
-  RoleId = 'role_id'
-}
-
-/** input type for updating data in table "role_permissions" */
-export type Role_Permissions_Set_Input = {
-  id?: InputMaybe<Scalars['uuid']>;
-  permission_id?: InputMaybe<Scalars['uuid']>;
-  role_id?: InputMaybe<Scalars['uuid']>;
-};
-
-/** update columns of table "role_permissions" */
-export enum Role_Permissions_Update_Column {
-  /** column name */
-  Id = 'id',
-  /** column name */
-  PermissionId = 'permission_id',
-  /** column name */
-  RoleId = 'role_id'
-}
-
 /** columns and relationships of "roles" */
 export type Roles = {
   __typename?: 'roles';
-  id: Scalars['uuid'];
+  created_at: Scalars['timestamptz'];
   key: Scalars['String'];
   /** An array relationship */
-  role_permissions: Array<Role_Permissions>;
+  roles_permissions: Array<Roles_Permissions>;
   /** An aggregate relationship */
-  role_permissions_aggregate: Role_Permissions_Aggregate;
+  roles_permissions_aggregate: Roles_Permissions_Aggregate;
+  updated_at: Scalars['timestamptz'];
   /** An array relationship */
   user_roles: Array<User_Roles>;
   /** An aggregate relationship */
@@ -1177,22 +1098,22 @@ export type Roles = {
 
 
 /** columns and relationships of "roles" */
-export type RolesRole_PermissionsArgs = {
-  distinct_on?: InputMaybe<Array<Role_Permissions_Select_Column>>;
+export type RolesRoles_PermissionsArgs = {
+  distinct_on?: InputMaybe<Array<Roles_Permissions_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
-  order_by?: InputMaybe<Array<Role_Permissions_Order_By>>;
-  where?: InputMaybe<Role_Permissions_Bool_Exp>;
+  order_by?: InputMaybe<Array<Roles_Permissions_Order_By>>;
+  where?: InputMaybe<Roles_Permissions_Bool_Exp>;
 };
 
 
 /** columns and relationships of "roles" */
-export type RolesRole_Permissions_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Role_Permissions_Select_Column>>;
+export type RolesRoles_Permissions_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Roles_Permissions_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
-  order_by?: InputMaybe<Array<Role_Permissions_Order_By>>;
-  where?: InputMaybe<Role_Permissions_Bool_Exp>;
+  order_by?: InputMaybe<Array<Roles_Permissions_Order_By>>;
+  where?: InputMaybe<Roles_Permissions_Bool_Exp>;
 };
 
 
@@ -1242,40 +1163,42 @@ export type Roles_Bool_Exp = {
   _and?: InputMaybe<Array<Roles_Bool_Exp>>;
   _not?: InputMaybe<Roles_Bool_Exp>;
   _or?: InputMaybe<Array<Roles_Bool_Exp>>;
-  id?: InputMaybe<Uuid_Comparison_Exp>;
+  created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
   key?: InputMaybe<String_Comparison_Exp>;
-  role_permissions?: InputMaybe<Role_Permissions_Bool_Exp>;
+  roles_permissions?: InputMaybe<Roles_Permissions_Bool_Exp>;
+  updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
   user_roles?: InputMaybe<User_Roles_Bool_Exp>;
 };
 
 /** unique or primary key constraints on table "roles" */
 export enum Roles_Constraint {
   /** unique or primary key constraint on columns "key" */
-  RolesKeyKey = 'roles_key_key',
-  /** unique or primary key constraint on columns "id" */
   RolesPkey = 'roles_pkey'
 }
 
 /** input type for inserting data into table "roles" */
 export type Roles_Insert_Input = {
-  id?: InputMaybe<Scalars['uuid']>;
+  created_at?: InputMaybe<Scalars['timestamptz']>;
   key?: InputMaybe<Scalars['String']>;
-  role_permissions?: InputMaybe<Role_Permissions_Arr_Rel_Insert_Input>;
+  roles_permissions?: InputMaybe<Roles_Permissions_Arr_Rel_Insert_Input>;
+  updated_at?: InputMaybe<Scalars['timestamptz']>;
   user_roles?: InputMaybe<User_Roles_Arr_Rel_Insert_Input>;
 };
 
 /** aggregate max on columns */
 export type Roles_Max_Fields = {
   __typename?: 'roles_max_fields';
-  id?: Maybe<Scalars['uuid']>;
+  created_at?: Maybe<Scalars['timestamptz']>;
   key?: Maybe<Scalars['String']>;
+  updated_at?: Maybe<Scalars['timestamptz']>;
 };
 
 /** aggregate min on columns */
 export type Roles_Min_Fields = {
   __typename?: 'roles_min_fields';
-  id?: Maybe<Scalars['uuid']>;
+  created_at?: Maybe<Scalars['timestamptz']>;
   key?: Maybe<Scalars['String']>;
+  updated_at?: Maybe<Scalars['timestamptz']>;
 };
 
 /** response of any mutation on the table "roles" */
@@ -1303,49 +1226,245 @@ export type Roles_On_Conflict = {
 
 /** Ordering options when selecting data from "roles". */
 export type Roles_Order_By = {
-  id?: InputMaybe<Order_By>;
+  created_at?: InputMaybe<Order_By>;
   key?: InputMaybe<Order_By>;
-  role_permissions_aggregate?: InputMaybe<Role_Permissions_Aggregate_Order_By>;
+  roles_permissions_aggregate?: InputMaybe<Roles_Permissions_Aggregate_Order_By>;
+  updated_at?: InputMaybe<Order_By>;
   user_roles_aggregate?: InputMaybe<User_Roles_Aggregate_Order_By>;
 };
 
+/** columns and relationships of "roles_permissions" */
+export type Roles_Permissions = {
+  __typename?: 'roles_permissions';
+  created_at: Scalars['timestamptz'];
+  id: Scalars['uuid'];
+  /** An object relationship */
+  permission: Permissions;
+  permission_key: Scalars['String'];
+  /** An object relationship */
+  role: Roles;
+  role_key: Scalars['String'];
+  updated_at: Scalars['timestamptz'];
+};
+
+/** aggregated selection of "roles_permissions" */
+export type Roles_Permissions_Aggregate = {
+  __typename?: 'roles_permissions_aggregate';
+  aggregate?: Maybe<Roles_Permissions_Aggregate_Fields>;
+  nodes: Array<Roles_Permissions>;
+};
+
+/** aggregate fields of "roles_permissions" */
+export type Roles_Permissions_Aggregate_Fields = {
+  __typename?: 'roles_permissions_aggregate_fields';
+  count: Scalars['Int'];
+  max?: Maybe<Roles_Permissions_Max_Fields>;
+  min?: Maybe<Roles_Permissions_Min_Fields>;
+};
+
+
+/** aggregate fields of "roles_permissions" */
+export type Roles_Permissions_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Roles_Permissions_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** order by aggregate values of table "roles_permissions" */
+export type Roles_Permissions_Aggregate_Order_By = {
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Roles_Permissions_Max_Order_By>;
+  min?: InputMaybe<Roles_Permissions_Min_Order_By>;
+};
+
+/** input type for inserting array relation for remote table "roles_permissions" */
+export type Roles_Permissions_Arr_Rel_Insert_Input = {
+  data: Array<Roles_Permissions_Insert_Input>;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Roles_Permissions_On_Conflict>;
+};
+
+/** Boolean expression to filter rows from the table "roles_permissions". All fields are combined with a logical 'AND'. */
+export type Roles_Permissions_Bool_Exp = {
+  _and?: InputMaybe<Array<Roles_Permissions_Bool_Exp>>;
+  _not?: InputMaybe<Roles_Permissions_Bool_Exp>;
+  _or?: InputMaybe<Array<Roles_Permissions_Bool_Exp>>;
+  created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  id?: InputMaybe<Uuid_Comparison_Exp>;
+  permission?: InputMaybe<Permissions_Bool_Exp>;
+  permission_key?: InputMaybe<String_Comparison_Exp>;
+  role?: InputMaybe<Roles_Bool_Exp>;
+  role_key?: InputMaybe<String_Comparison_Exp>;
+  updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "roles_permissions" */
+export enum Roles_Permissions_Constraint {
+  /** unique or primary key constraint on columns "permission_key", "role_key" */
+  RolesPermissionsPermissionKeyRoleKeyKey = 'roles_permissions_permission_key_role_key_key',
+  /** unique or primary key constraint on columns "id" */
+  RolesPermissionsPkey = 'roles_permissions_pkey'
+}
+
+/** input type for inserting data into table "roles_permissions" */
+export type Roles_Permissions_Insert_Input = {
+  created_at?: InputMaybe<Scalars['timestamptz']>;
+  id?: InputMaybe<Scalars['uuid']>;
+  permission?: InputMaybe<Permissions_Obj_Rel_Insert_Input>;
+  permission_key?: InputMaybe<Scalars['String']>;
+  role?: InputMaybe<Roles_Obj_Rel_Insert_Input>;
+  role_key?: InputMaybe<Scalars['String']>;
+  updated_at?: InputMaybe<Scalars['timestamptz']>;
+};
+
+/** aggregate max on columns */
+export type Roles_Permissions_Max_Fields = {
+  __typename?: 'roles_permissions_max_fields';
+  created_at?: Maybe<Scalars['timestamptz']>;
+  id?: Maybe<Scalars['uuid']>;
+  permission_key?: Maybe<Scalars['String']>;
+  role_key?: Maybe<Scalars['String']>;
+  updated_at?: Maybe<Scalars['timestamptz']>;
+};
+
+/** order by max() on columns of table "roles_permissions" */
+export type Roles_Permissions_Max_Order_By = {
+  created_at?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  permission_key?: InputMaybe<Order_By>;
+  role_key?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type Roles_Permissions_Min_Fields = {
+  __typename?: 'roles_permissions_min_fields';
+  created_at?: Maybe<Scalars['timestamptz']>;
+  id?: Maybe<Scalars['uuid']>;
+  permission_key?: Maybe<Scalars['String']>;
+  role_key?: Maybe<Scalars['String']>;
+  updated_at?: Maybe<Scalars['timestamptz']>;
+};
+
+/** order by min() on columns of table "roles_permissions" */
+export type Roles_Permissions_Min_Order_By = {
+  created_at?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  permission_key?: InputMaybe<Order_By>;
+  role_key?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+};
+
+/** response of any mutation on the table "roles_permissions" */
+export type Roles_Permissions_Mutation_Response = {
+  __typename?: 'roles_permissions_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Roles_Permissions>;
+};
+
+/** on_conflict condition type for table "roles_permissions" */
+export type Roles_Permissions_On_Conflict = {
+  constraint: Roles_Permissions_Constraint;
+  update_columns?: Array<Roles_Permissions_Update_Column>;
+  where?: InputMaybe<Roles_Permissions_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "roles_permissions". */
+export type Roles_Permissions_Order_By = {
+  created_at?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  permission?: InputMaybe<Permissions_Order_By>;
+  permission_key?: InputMaybe<Order_By>;
+  role?: InputMaybe<Roles_Order_By>;
+  role_key?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: roles_permissions */
+export type Roles_Permissions_Pk_Columns_Input = {
+  id: Scalars['uuid'];
+};
+
+/** select columns of table "roles_permissions" */
+export enum Roles_Permissions_Select_Column {
+  /** column name */
+  CreatedAt = 'created_at',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  PermissionKey = 'permission_key',
+  /** column name */
+  RoleKey = 'role_key',
+  /** column name */
+  UpdatedAt = 'updated_at'
+}
+
+/** input type for updating data in table "roles_permissions" */
+export type Roles_Permissions_Set_Input = {
+  created_at?: InputMaybe<Scalars['timestamptz']>;
+  id?: InputMaybe<Scalars['uuid']>;
+  permission_key?: InputMaybe<Scalars['String']>;
+  role_key?: InputMaybe<Scalars['String']>;
+  updated_at?: InputMaybe<Scalars['timestamptz']>;
+};
+
+/** update columns of table "roles_permissions" */
+export enum Roles_Permissions_Update_Column {
+  /** column name */
+  CreatedAt = 'created_at',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  PermissionKey = 'permission_key',
+  /** column name */
+  RoleKey = 'role_key',
+  /** column name */
+  UpdatedAt = 'updated_at'
+}
+
 /** primary key columns input for table: roles */
 export type Roles_Pk_Columns_Input = {
-  id: Scalars['uuid'];
+  key: Scalars['String'];
 };
 
 /** select columns of table "roles" */
 export enum Roles_Select_Column {
   /** column name */
-  Id = 'id',
+  CreatedAt = 'created_at',
   /** column name */
-  Key = 'key'
+  Key = 'key',
+  /** column name */
+  UpdatedAt = 'updated_at'
 }
 
 /** input type for updating data in table "roles" */
 export type Roles_Set_Input = {
-  id?: InputMaybe<Scalars['uuid']>;
+  created_at?: InputMaybe<Scalars['timestamptz']>;
   key?: InputMaybe<Scalars['String']>;
+  updated_at?: InputMaybe<Scalars['timestamptz']>;
 };
 
 /** update columns of table "roles" */
 export enum Roles_Update_Column {
   /** column name */
-  Id = 'id',
+  CreatedAt = 'created_at',
   /** column name */
-  Key = 'key'
+  Key = 'key',
+  /** column name */
+  UpdatedAt = 'updated_at'
 }
 
 export type SigninOutput = {
   __typename?: 'signinOutput';
-  data?: Maybe<Token>;
+  data?: Maybe<AuthResponse>;
   message: Scalars['String'];
   success: Scalars['Boolean'];
 };
 
 export type SignupOutput = {
   __typename?: 'signupOutput';
-  data?: Maybe<Token>;
+  data?: Maybe<AuthResponse>;
   message: Scalars['String'];
   success: Scalars['Boolean'];
 };
@@ -1364,18 +1483,18 @@ export type Subscription_Root = {
   permissions_aggregate: Permissions_Aggregate;
   /** fetch data from the table: "permissions" using primary key columns */
   permissions_by_pk?: Maybe<Permissions>;
-  /** An array relationship */
-  role_permissions: Array<Role_Permissions>;
-  /** An aggregate relationship */
-  role_permissions_aggregate: Role_Permissions_Aggregate;
-  /** fetch data from the table: "role_permissions" using primary key columns */
-  role_permissions_by_pk?: Maybe<Role_Permissions>;
   /** fetch data from the table: "roles" */
   roles: Array<Roles>;
   /** fetch aggregated fields from the table: "roles" */
   roles_aggregate: Roles_Aggregate;
   /** fetch data from the table: "roles" using primary key columns */
   roles_by_pk?: Maybe<Roles>;
+  /** An array relationship */
+  roles_permissions: Array<Roles_Permissions>;
+  /** An aggregate relationship */
+  roles_permissions_aggregate: Roles_Permissions_Aggregate;
+  /** fetch data from the table: "roles_permissions" using primary key columns */
+  roles_permissions_by_pk?: Maybe<Roles_Permissions>;
   /** An array relationship */
   user_roles: Array<User_Roles>;
   /** An aggregate relationship */
@@ -1433,30 +1552,7 @@ export type Subscription_RootPermissions_AggregateArgs = {
 
 
 export type Subscription_RootPermissions_By_PkArgs = {
-  id: Scalars['uuid'];
-};
-
-
-export type Subscription_RootRole_PermissionsArgs = {
-  distinct_on?: InputMaybe<Array<Role_Permissions_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
-  order_by?: InputMaybe<Array<Role_Permissions_Order_By>>;
-  where?: InputMaybe<Role_Permissions_Bool_Exp>;
-};
-
-
-export type Subscription_RootRole_Permissions_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Role_Permissions_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
-  order_by?: InputMaybe<Array<Role_Permissions_Order_By>>;
-  where?: InputMaybe<Role_Permissions_Bool_Exp>;
-};
-
-
-export type Subscription_RootRole_Permissions_By_PkArgs = {
-  id: Scalars['uuid'];
+  key: Scalars['String'];
 };
 
 
@@ -1479,6 +1575,29 @@ export type Subscription_RootRoles_AggregateArgs = {
 
 
 export type Subscription_RootRoles_By_PkArgs = {
+  key: Scalars['String'];
+};
+
+
+export type Subscription_RootRoles_PermissionsArgs = {
+  distinct_on?: InputMaybe<Array<Roles_Permissions_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Roles_Permissions_Order_By>>;
+  where?: InputMaybe<Roles_Permissions_Bool_Exp>;
+};
+
+
+export type Subscription_RootRoles_Permissions_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Roles_Permissions_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Roles_Permissions_Order_By>>;
+  where?: InputMaybe<Roles_Permissions_Bool_Exp>;
+};
+
+
+export type Subscription_RootRoles_Permissions_By_PkArgs = {
   id: Scalars['uuid'];
 };
 
@@ -1541,18 +1660,15 @@ export type Timestamptz_Comparison_Exp = {
   _nin?: InputMaybe<Array<Scalars['timestamptz']>>;
 };
 
-export type Token = {
-  __typename?: 'token';
-  token: Scalars['String'];
-};
-
 /** columns and relationships of "user_roles" */
 export type User_Roles = {
   __typename?: 'user_roles';
+  created_at: Scalars['timestamptz'];
   id: Scalars['uuid'];
   /** An object relationship */
   role: Roles;
-  role_id: Scalars['uuid'];
+  role_key: Scalars['String'];
+  updated_at: Scalars['timestamptz'];
   /** An object relationship */
   user: Users;
   user_id: Scalars['uuid'];
@@ -1599,9 +1715,11 @@ export type User_Roles_Bool_Exp = {
   _and?: InputMaybe<Array<User_Roles_Bool_Exp>>;
   _not?: InputMaybe<User_Roles_Bool_Exp>;
   _or?: InputMaybe<Array<User_Roles_Bool_Exp>>;
+  created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
   id?: InputMaybe<Uuid_Comparison_Exp>;
   role?: InputMaybe<Roles_Bool_Exp>;
-  role_id?: InputMaybe<Uuid_Comparison_Exp>;
+  role_key?: InputMaybe<String_Comparison_Exp>;
+  updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
   user?: InputMaybe<Users_Bool_Exp>;
   user_id?: InputMaybe<Uuid_Comparison_Exp>;
 };
@@ -1609,14 +1727,18 @@ export type User_Roles_Bool_Exp = {
 /** unique or primary key constraints on table "user_roles" */
 export enum User_Roles_Constraint {
   /** unique or primary key constraint on columns "id" */
-  UserRolesPkey = 'user_roles_pkey'
+  UserRolesPkey = 'user_roles_pkey',
+  /** unique or primary key constraint on columns "user_id", "role_key" */
+  UserRolesUserIdRoleKeyKey = 'user_roles_user_id_role_key_key'
 }
 
 /** input type for inserting data into table "user_roles" */
 export type User_Roles_Insert_Input = {
+  created_at?: InputMaybe<Scalars['timestamptz']>;
   id?: InputMaybe<Scalars['uuid']>;
   role?: InputMaybe<Roles_Obj_Rel_Insert_Input>;
-  role_id?: InputMaybe<Scalars['uuid']>;
+  role_key?: InputMaybe<Scalars['String']>;
+  updated_at?: InputMaybe<Scalars['timestamptz']>;
   user?: InputMaybe<Users_Obj_Rel_Insert_Input>;
   user_id?: InputMaybe<Scalars['uuid']>;
 };
@@ -1624,30 +1746,38 @@ export type User_Roles_Insert_Input = {
 /** aggregate max on columns */
 export type User_Roles_Max_Fields = {
   __typename?: 'user_roles_max_fields';
+  created_at?: Maybe<Scalars['timestamptz']>;
   id?: Maybe<Scalars['uuid']>;
-  role_id?: Maybe<Scalars['uuid']>;
+  role_key?: Maybe<Scalars['String']>;
+  updated_at?: Maybe<Scalars['timestamptz']>;
   user_id?: Maybe<Scalars['uuid']>;
 };
 
 /** order by max() on columns of table "user_roles" */
 export type User_Roles_Max_Order_By = {
+  created_at?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
-  role_id?: InputMaybe<Order_By>;
+  role_key?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
   user_id?: InputMaybe<Order_By>;
 };
 
 /** aggregate min on columns */
 export type User_Roles_Min_Fields = {
   __typename?: 'user_roles_min_fields';
+  created_at?: Maybe<Scalars['timestamptz']>;
   id?: Maybe<Scalars['uuid']>;
-  role_id?: Maybe<Scalars['uuid']>;
+  role_key?: Maybe<Scalars['String']>;
+  updated_at?: Maybe<Scalars['timestamptz']>;
   user_id?: Maybe<Scalars['uuid']>;
 };
 
 /** order by min() on columns of table "user_roles" */
 export type User_Roles_Min_Order_By = {
+  created_at?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
-  role_id?: InputMaybe<Order_By>;
+  role_key?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
   user_id?: InputMaybe<Order_By>;
 };
 
@@ -1669,9 +1799,11 @@ export type User_Roles_On_Conflict = {
 
 /** Ordering options when selecting data from "user_roles". */
 export type User_Roles_Order_By = {
+  created_at?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   role?: InputMaybe<Roles_Order_By>;
-  role_id?: InputMaybe<Order_By>;
+  role_key?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
   user?: InputMaybe<Users_Order_By>;
   user_id?: InputMaybe<Order_By>;
 };
@@ -1684,26 +1816,36 @@ export type User_Roles_Pk_Columns_Input = {
 /** select columns of table "user_roles" */
 export enum User_Roles_Select_Column {
   /** column name */
+  CreatedAt = 'created_at',
+  /** column name */
   Id = 'id',
   /** column name */
-  RoleId = 'role_id',
+  RoleKey = 'role_key',
+  /** column name */
+  UpdatedAt = 'updated_at',
   /** column name */
   UserId = 'user_id'
 }
 
 /** input type for updating data in table "user_roles" */
 export type User_Roles_Set_Input = {
+  created_at?: InputMaybe<Scalars['timestamptz']>;
   id?: InputMaybe<Scalars['uuid']>;
-  role_id?: InputMaybe<Scalars['uuid']>;
+  role_key?: InputMaybe<Scalars['String']>;
+  updated_at?: InputMaybe<Scalars['timestamptz']>;
   user_id?: InputMaybe<Scalars['uuid']>;
 };
 
 /** update columns of table "user_roles" */
 export enum User_Roles_Update_Column {
   /** column name */
+  CreatedAt = 'created_at',
+  /** column name */
   Id = 'id',
   /** column name */
-  RoleId = 'role_id',
+  RoleKey = 'role_key',
+  /** column name */
+  UpdatedAt = 'updated_at',
   /** column name */
   UserId = 'user_id'
 }

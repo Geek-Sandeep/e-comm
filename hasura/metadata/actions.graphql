@@ -46,6 +46,10 @@ type Query {
   getRoles: listResponse
 }
 
+type Query {
+  getUsers: usersResponse
+}
+
 type Mutation {
   insertPermission(
     permissionName: String!
@@ -84,9 +88,10 @@ input SampleInput {
 }
 
 type usersList {
-  id: String
-  name: String
-  email: String
+  id: String!
+  name: String!
+  email: String!
+  user_roles: [role]
 }
 
 type signupOutput {
@@ -138,5 +143,15 @@ type lists {
   key: String!
   created_at: String!
   updated_at: String!
+}
+
+type usersResponse {
+  success: Boolean!
+  message: String!
+  data: [usersList]
+}
+
+type role {
+  role_key: String!
 }
 

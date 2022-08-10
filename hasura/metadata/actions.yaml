@@ -55,6 +55,13 @@ actions:
     permissions:
       - role: super_admin
     comment: getRoles
+  - name: getUsers
+    definition:
+      kind: ""
+      handler: http://host.docker.internal:3000/api/authorization/getUsers
+    permissions:
+      - role: super_admin
+    comment: getUsers
   - name: insertPermission
     definition:
       kind: synchronous
@@ -97,4 +104,6 @@ custom_types:
     - name: SampleOutput
     - name: listResponse
     - name: lists
+    - name: usersResponse
+    - name: role
   scalars: []

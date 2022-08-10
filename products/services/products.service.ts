@@ -1,6 +1,6 @@
 import { Context } from "moleculer"
 
-const { useGetProductByPkQuery } = require("../src/generated/graphql.tsx")
+const { useGetProductByPkQuery } = require("../src/generated/graphql.ts")
 
 module.exports = {
     name: "product",
